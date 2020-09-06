@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import {Menu,Segment } from 'semantic-ui-react'
-import {NavLink,withRouter,BrowserRouter as Router, Link} from 'react-router-dom';
+import {Menu } from 'semantic-ui-react'
+import {NavLink} from 'react-router-dom';
 
 export default class AppMenu extends Component {
     constructor() {
@@ -23,14 +23,6 @@ export default class AppMenu extends Component {
                             onClick={this.handleItemClick}
                         >
                             Tasks
-                        </Menu.Item>
-                        <Menu.Item
-                            as={NavLink} to="/landingpage"
-                            name='Landing Page'
-                            active={activeItem === 'landingpage'}
-                            onClick={this.handleItemClick}
-                        >
-                                Landing Page
                         </Menu.Item>
                     </Menu.Menu>
                     <Menu.Menu position='right'>

@@ -6,12 +6,11 @@ import {
 	Switch,
 	Route
 } from "react-router-dom";
-import LandingPage from './components/LandingPage/LandingPage';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import { Container } from 'semantic-ui-react'
-import AppHeader from './components/Header/Header';
-import AppFooter from './components/Footer/Footer';
+import AppHeader from './components/header/Header';
+import AppFooter from './components/footer/Footer';
 import AppHome from './pages/home/Home';
 import Tasks from './pages/tasks/Tasks';
 
@@ -29,9 +28,6 @@ function App() {
         					</Route>
         					<Route exact path="/tasks">
 								<Tasks />
-        					</Route>
-        					<Route exact path="/landingpage">
-          						<LandingPage />
         					</Route>
     					</Switch>
 						</Container>

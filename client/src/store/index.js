@@ -1,5 +1,8 @@
-import { createStore } from "redux";
-import rootReducer from "./reducer";
+import { createStore, combineReducers } from "redux";
+import userReducer from './user/index';
+import tasksReducer from './tasks/index';
+
+const rootReducer = combineReducers({user: userReducer, tasks: tasksReducer})
 
 const store = createStore(
         rootReducer,

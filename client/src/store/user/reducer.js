@@ -10,7 +10,7 @@ let initialState = {
     winner: false
 };
 
-function rootReducer(state = initialState, action) {
+function userReducer(state = initialState, action) {
     switch (action.type) {
         case actions.CHANGE_BOARD:
         case actions.CHANGE_USER:
@@ -25,4 +25,4 @@ function rootReducer(state = initialState, action) {
             return state;
     }
 };
-export default rootReducer;
+export default userReducer;

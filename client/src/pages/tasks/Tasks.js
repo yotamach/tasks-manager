@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './Tasks.scss';
+import TasksList from '../../components/tasksList/tasksList';
 
 export default class Tasks extends Component {
     render() {
         return (
             <div className="products">
-                Tasks
+                <TasksList />
             </div>
         )
     }

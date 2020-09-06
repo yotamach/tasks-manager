@@ -1,6 +1,6 @@
 import {actions} from './actionTypes';
 import {getBoardSelector, getUserSelector, getWinnerSelector} from './selectors';
-import store from './index';
+import store from '../index';
 
 const state = store.getState();
 
