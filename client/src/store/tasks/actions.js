@@ -3,7 +3,6 @@ import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
 
 const state = store.getState();
-
 const getTasksList = (state) => {
     return getTasksListSelector(state.tasks);
 }
@@ -62,6 +61,16 @@ const updateTask = (id,task) => {
     return { type: actions.UPDATE_TASK , payload };
 };
 
+const selectTask = (id) => {
+    const tasks = [...state.tasks];
+    let selectedTask = tasks[id];
+    const payload = {
+        selectedTask: selectedTask
+    };
+    return { type: actions.SELECT_TASK , payload };
+};
+
+
 const removeTask = (id) => {
     const tasks = [...state.tasks];
     tasks.splice(tasks.findIndex(function(i){
@@ -81,5 +90,6 @@ export {
     retrieveTasksList,
     createTask,
     updateTask,
-    removeTask
+    removeTask,
+    selectTask
 };

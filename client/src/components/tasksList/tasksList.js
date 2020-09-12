@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { getSelectedTask, getTasksList, createTask, updateTask, removeTask, retrieveTasksList } from '../../store/tasks/actions';
+import {selectTask, getSelectedTask, getTasksList, createTask, updateTask, removeTask, retrieveTasksList } from '../../store/tasks/actions';
 import { connect } from 'react-redux';
 import './tasksList.scss';
 import { List } from 'semantic-ui-react';
@@ -29,6 +29,10 @@ const mapDispatchToProps = (dispatch) => {
 		deleteTask: (id) => {
 			const action = removeTask(id);
 			dispatch(action);
+        },
+        setSelectedTask: (id) => {
+			const action =  selectTask(id);
+			dispatch(action);
 		}
 	}
 };
@@ -41,9 +45,14 @@ class TasksList extends Component {
     };
 
     showTasks = () => {
-        const {tasks} = this.props;
-        const {onUpdate,onDelete} = this;
-        return tasks.map((task) => <TaskItem task={task} onUpdate={onUpdate} onDelete={onDelete} />);
+        const {tasks,currentTask} = this.props;
+        const {onUpdate,onDelete,onSelect} = this;
+        const selectedTaskId = currentTask.id;
+        return tasks.map((task) => <TaskItem slectedTaskId={selectedTaskId} onSelect={() => onSelect(task.id)} task={task} onUpdate={onUpdate} onDelete={onDelete} />);
+    }
+    onSelect = (id) => {
+        const {setSelectedTask} = this.props;
+        setSelectedTask(id);
     }
 
     onUpdate = () => {

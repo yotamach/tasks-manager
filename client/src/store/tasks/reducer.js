@@ -12,6 +12,7 @@ function tasksReducer(state = initialState, action) {
         case actions.UPDATE_TASK:
         case actions.DELETE_TASK:
         case actions.RETRIEVE_TASKS:
+        case actions.SELECT_TASK:
             const {payload} = action;
             state = {...state,...payload};
             return state;
