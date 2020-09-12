@@ -1,19 +1,29 @@
 const express = require('express');
 const router = express.Router();
-const { Task } = require("../models/Task");
+const {
+    Task
+} = require("../models/Task");
 
-const { auth } = require("../middleware/auth");
+const {
+    auth
+} = require("../middleware/auth");
 
 //=================================
 //             User
 //=================================
 
 router.get("/", (req, res) => {
-    Task.find({},null,(err,docs) => {
-        if(err) {
-            return res.status(500).json({ success: false, error: err.message})
+    Task.find({}, null, (err, tasks) => {
+        if (err) {
+            return res.status(500).json({
+                success: false,
+                error: err.message
+            })
         }
-        return res.status(200).json({ success: true, docs})
+        return res.status(200).json({
+            success: true,
+            tasks
+        })
     });
 });
 
@@ -26,43 +36,51 @@ router.post("/createTask", (req, res) => {
     });
 
     task.save((err, doc) => {
-        if (err) return res.json({ success: false, error: err.message });
+        if (err) return res.json({
+            success: false,
+            error: err.message
+        });
         return res.status(200).json({
             success: true,
-            doc
+            task
         });
     });
 });
 
-router.post("/login", (req, res) => {
-    User.findOne({ email: req.body.email }, (err, user) => {
-        if (!user)
-            return res.json({
-                loginSuccess: false,
-                message: "Auth failed, email not found"
+router.get("/:id", (req, res) => {
+    Task.findOne({
+        _id: req.params.id
+    }, (err, task) => {
+        if (err)
+            return res.status(500).json({
+                success: false,
+                error: err.message
             });
-
-        user.comparePassword(req.body.password, (err, isMatch) => {
-            if (!isMatch)
-                return res.json({ loginSuccess: false, message: "Wrong password" });
-
-            user.generateToken((err, user) => {
-                if (err) return res.status(400).send(err);
-                res.cookie("w_authExp", user.tokenExp);
-                res
-                    .cookie("w_auth", user.token)
-                    .status(200)
-                    .json({
-                        loginSuccess: true, userId: user._id
-                    });
+        else {
+            if (!task)
+                return res.status(404).json({
+                    success: false,
+                    task
+                });
+            return res.status(200).json({
+                success: true,
+                task
             });
-        });
+        }
     });
 });
 
 router.get("/logout", auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
-        if (err) return res.json({ success: false, err });
+    User.findOneAndUpdate({
+        _id: req.user._id
+    }, {
+        token: "",
+        tokenExp: ""
+    }, (err, doc) => {
+        if (err) return res.json({
+            success: false,
+            err
+        });
         return res.status(200).send({
             success: true
         });

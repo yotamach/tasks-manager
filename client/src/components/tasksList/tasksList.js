@@ -15,8 +15,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
 	return {
         retrieveTasks: (task) => {
-			const action = retrieveTasksList();
-			dispatch(action);
+            retrieveTasksList(dispatch);
 		},
 		createTask: (task) => {
 			const action = createTask(task);

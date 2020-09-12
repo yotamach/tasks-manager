@@ -1,6 +1,7 @@
 import {actions} from './actionTypes';
 import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
+import serviceRequest from './../serviceRequest';
 
 const state = store.getState();
 const getTasksList = (state) => {
@@ -11,25 +12,19 @@ const getSelectedTask = (state) => {
     return getSelectedTaskSelector(state.tasks);
 }
 
-const retrieveTasksList = () => {
-    const payload = {
-        tasks: [
-            {
-                id: 1,
-                taskName: "First task",
-                endOfTime: new Date('2022/12/12'),
-                status: 'completed'
-            },
-            {
-                id: 2,
-                taskName: "Second task",
-                endOfTime: new Date('2011/12/12'),
-                status: 'in progress'
-            }
-        ]
-    };
-    return { type: actions.RETRIEVE_TASKS, payload };
-};
+const retrieveTasksList = (dispatch) => {
+    serviceRequest(
+        '/api/tasks',
+        'get',
+        actions.RETRIEVE_TASKS
+    ).then(response => {
+        console.log(response);
+        dispatch({ type: `${actions.RETRIEVE_TASKS}_SUCCESS`,payload: response.data});
+    }).catch(err => {
+        console.log(err);
+        dispatch({ type:  `${actions.RETRIEVE_TASKS}_FAILURE`,payload: err.message});
+    });
+}
 
 const createTask = ({taskName,endOfTime,status}) => {
     let tasks = [...state.tasks];
@@ -82,7 +77,6 @@ const removeTask = (id) => {
     };
     return { type: actions.DELETE_TASK , payload };
 };
-
 
 export {
     getTasksList,
