@@ -4,6 +4,7 @@ import store from '../index';
 import serviceRequest from './../serviceRequest';
 
 const state = store.getState();
+const {dispatch} = store;
 const getTasksList = (state) => {
     return getTasksListSelector(state.tasks);
 }
@@ -12,18 +13,24 @@ const getSelectedTask = (state) => {
     return getSelectedTaskSelector(state.tasks);
 }
 
-const retrieveTasksList = (dispatch) => {
+const retrieveTasksList = () => {
     serviceRequest(
         '/api/tasks',
         'get',
-        actions.RETRIEVE_TASKS
-    ).then(response => {
-        console.log(response);
-        dispatch({ type: `${actions.RETRIEVE_TASKS}_SUCCESS`,payload: response.data});
-    }).catch(err => {
-        console.log(err);
-        dispatch({ type:  `${actions.RETRIEVE_TASKS}_FAILURE`,payload: err.message});
-    });
+        actions.RETRIEVE_TASKS,
+        (response) => {
+            dispatch({
+                type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
+                payload: response.data
+            });
+        },
+        (err) => {
+            dispatch({
+                type:  `${actions.RETRIEVE_TASKS}_FAILURE`,
+                payload: err.message
+            });
+        }
+    );
 }
 
 const createTask = ({taskName,endOfTime,status}) => {
@@ -67,15 +74,23 @@ const selectTask = (id) => {
 
 
 const removeTask = (id) => {
-    const tasks = [...state.tasks];
-    tasks.splice(tasks.findIndex(function(i){
-        return i.id === id;
-    }), 1);
-    const payload = {
-        tasks,
-        selectedTask: {}
-    };
-    return { type: actions.DELETE_TASK , payload };
+    serviceRequest(
+        '/api/tasks/' + id,
+        'delete',
+        actions.DELETE_TASK,
+        (response) => {
+            dispatch({
+                type: `${actions.DELETE_TASK}_SUCCESS`,
+                payload: {id}
+            });
+        },
+        (err) => {
+            dispatch({
+                type:  `${actions.DELETE_TASK}_FAILURE`,
+                payload: err.message
+            });
+        }
+    );
 };
 
 export {

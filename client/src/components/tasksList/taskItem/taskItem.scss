@@ -6,7 +6,11 @@
         font-weight: bolder;
     }
 }
-
 .active{
     
+}
+.tasks-list{
+    >.list-item{
+        padding: 2px 5px;
+    }
 }

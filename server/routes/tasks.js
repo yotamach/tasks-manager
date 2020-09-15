@@ -70,6 +70,29 @@ router.get("/:id", (req, res) => {
     });
 });
 
+router.delete("/:id", (req, res) => {
+    Task.findByIdAndDelete({
+        _id: req.params.id
+    }, (err, task) => {
+        if (err)
+            return res.status(500).json({
+                success: false,
+                error: err.message
+            });
+        else {
+            if (!task)
+                return res.status(404).json({
+                    success: false,
+                    task
+                });
+            return res.status(202).json({
+                success: true,
+                task
+            });
+        }
+    });
+});
+
 router.get("/logout", auth, (req, res) => {
     User.findOneAndUpdate({
         _id: req.user._id

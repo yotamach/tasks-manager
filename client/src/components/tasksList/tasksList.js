@@ -26,8 +26,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(action);
 		},
 		deleteTask: (id) => {
-			const action = removeTask(id);
-			dispatch(action);
+			removeTask(id);
         },
         setSelectedTask: (id) => {
 			const action =  selectTask(id);
@@ -47,7 +46,14 @@ class TasksList extends Component {
         const {tasks,currentTask} = this.props;
         const {onUpdate,onDelete,onSelect} = this;
         const selectedTaskId = currentTask.id;
-        return tasks.map((task) => <TaskItem slectedTaskId={selectedTaskId} onSelect={() => onSelect(task.id)} task={task} onUpdate={onUpdate} onDelete={onDelete} />);
+        return tasks.map((task) => <TaskItem
+            key={task.id}
+            slectedTaskId={selectedTaskId}
+            onSelect={() => onSelect(task.id)}
+            task={task}
+            onUpdate={onUpdate}
+            onDelete={onDelete}
+            />);
     }
     onSelect = (id) => {
         const {setSelectedTask} = this.props;
@@ -58,8 +64,9 @@ class TasksList extends Component {
         console.log('Updated!');
     }
 
-    onDelete = () => {
-        console.log('Deleted!');
+    onDelete = (id) => {
+        const {deleteTask} = this.props;
+        deleteTask(id);
     }
 
     render() {

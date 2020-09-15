@@ -1,22 +1,23 @@
 import React from 'react'
-import {List,Button} from 'semantic-ui-react';
 import './taskItem.scss';
+import {List,Button} from 'semantic-ui-react';
 
 export default function TaskItem(props) {
-    console.log(props);
     const {task,onUpdate,onDelete,selectedTaskId} = props;
-    const id = task;
-    const selectedClass = selectedTaskId === task.id ? "active" : "";
+    const {_id}= task;
+    const selectedClass = selectedTaskId === _id ? "active" : "";
     return (
-        <List.Item className={selectedClass}>
+        <List.Item className={`list-item ${selectedClass}`}>
             <List.Content floated='right'>
-                <Button primary onClick={() => onUpdate(id,task)}>Update</Button>
-                <Button secondary onDelete={() => onDelete(id)}>Delete</Button>
+                <Button.Group>
+                    <Button inverted color='red' icon='edit' onClick={(_id) => onUpdate(_id,task)} />
+                    <Button inverted color='blue' icon='delete' onClick={() => onDelete(_id)} />
+                </Button.Group>
             </List.Content>
             <List.Content className="task-content">
                 <div className="task-title">{task.taskName}</div>
-                <div>{task.endOfTime.toString()}</div>
-                <div>{task.status}</div>
+                <div>{_id}</div>
+                <div>232432432432</div>
            </List.Content>
         </List.Item>
     )

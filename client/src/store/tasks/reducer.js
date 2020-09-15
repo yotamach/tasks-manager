@@ -7,15 +7,21 @@ let initialState = {
 };
 
 function tasksReducer(state = initialState, action) {
+    const {payload} = action;
     switch (action.type) {
         case actions.CREATE_TASK:
         case actions.UPDATE_TASK:
-        case actions.DELETE_TASK:
-        case `${actions.RETRIEVE_TASKS}_SUCCESS`:
         case actions.SELECT_TASK:
-            const {payload} = action;
-            console.log('payload',payload);
             state = {...state,...payload};
+            return state;
+        case `${actions.DELETE_TASK}_SUCCESS`:
+            const{tasks} = state;
+            const {id} = payload;
+            const updatedTasks = tasks.filter((i) => i._id !== id);
+            state = {...state,tasks: updatedTasks};
+            return state;
+        case `${actions.RETRIEVE_TASKS}_SUCCESS`:
+            state = {...state,tasks: payload.tasks};
             return state;
         default:
             return state;
