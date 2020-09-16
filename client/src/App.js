@@ -13,6 +13,7 @@ import AppHeader from './components/header/Header';
 import AppFooter from './components/footer/Footer';
 import AppHome from './pages/home/Home';
 import Tasks from './pages/tasks/Tasks';
+import NotFoundPage from './pages/notFoundPage/NotFoundPage';
 
 function App() {
 	const {appName} = AppDetails;
@@ -23,12 +24,9 @@ function App() {
 					<AppHeader title={appName} />
 						<Container className="app-container">
 						<Switch>
-							<Route exact path="/">
-          						<AppHome />
-        					</Route>
-        					<Route exact path="/tasks">
-								<Tasks />
-        					</Route>
+							<Route exact path="/" component={AppHome} />
+        					<Route exact path="/tasks" component={Tasks} />
+							<Route path="*" component={NotFoundPage} />
     					</Switch>
 						</Container>
 				</Router>

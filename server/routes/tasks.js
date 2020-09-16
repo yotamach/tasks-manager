@@ -9,7 +9,7 @@ const {
 } = require("../middleware/auth");
 
 //=================================
-//             User
+//             Task
 //=================================
 
 router.get("/", (req, res) => {
@@ -17,7 +17,7 @@ router.get("/", (req, res) => {
         if (err) {
             return res.status(500).json({
                 success: false,
-                error: err.message
+                error: err
             })
         }
         return res.status(200).json({
@@ -34,11 +34,10 @@ router.post("/createTask", (req, res) => {
         status: 'defined',
         creationTime: new Date()
     });
-
-    task.save((err, doc) => {
-        if (err) return res.json({
+    task.save((err, task) => {
+        if (err) return res.status(500).json({
             success: false,
-            error: err.message
+            error: err
         });
         return res.status(200).json({
             success: true,
@@ -83,30 +82,13 @@ router.delete("/:id", (req, res) => {
             if (!task)
                 return res.status(404).json({
                     success: false,
-                    task
+                    error: "Task doesn't exist"
                 });
-            return res.status(202).json({
+            return res.status(200).json({
                 success: true,
                 task
             });
         }
-    });
-});
-
-router.get("/logout", auth, (req, res) => {
-    User.findOneAndUpdate({
-        _id: req.user._id
-    }, {
-        token: "",
-        tokenExp: ""
-    }, (err, doc) => {
-        if (err) return res.json({
-            success: false,
-            err
-        });
-        return res.status(200).send({
-            success: true
-        });
     });
 });
 

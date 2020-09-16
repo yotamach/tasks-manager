@@ -2,6 +2,7 @@ import {actions} from './actionTypes';
 import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
 import serviceRequest from './../serviceRequest';
+import {setServerError} from './../errors/actions';
 
 const state = store.getState();
 const {dispatch} = store;
@@ -25,10 +26,7 @@ const retrieveTasksList = () => {
             });
         },
         (err) => {
-            dispatch({
-                type:  `${actions.RETRIEVE_TASKS}_FAILURE`,
-                payload: err.message
-            });
+            setServerError(err);
         }
     );
 }
@@ -85,10 +83,7 @@ const removeTask = (id) => {
             });
         },
         (err) => {
-            dispatch({
-                type:  `${actions.DELETE_TASK}_FAILURE`,
-                payload: err.message
-            });
+            setServerError(err);
         }
     );
 };
