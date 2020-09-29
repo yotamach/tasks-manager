@@ -13,10 +13,11 @@ const config = require("./config/key");
 //   .connect(config.mongoURI, { useNewUrlParser: true })
 //   .then(() => console.log("DB connected"))
 //   .catch(err => console.error(err));
-
+`userName`
 const mongoose = require("mongoose");
 console.log(config.mongoURI);
-const connect = mongoose.connect(`mongodb://${config.mongoURI}`,
+
+const connect = mongoose.connect(`mongodb+srv://${config.userName}:${config.password}@${config.mongoURI}${config.DBname}?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false

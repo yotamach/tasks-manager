@@ -1,5 +1,5 @@
-import React from 'react'
-import { Image, Loader, Segment } from 'semantic-ui-react'
+import React, { Component } from 'react'
+import { Image, Loader, Segment } from './node_modules/semantic-ui-react'
 
 const LoaderSpin = () => (
   <Segment inverted>

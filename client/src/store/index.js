@@ -1,5 +1,5 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import thunkMiddleware from 'redux-thunk'
+import { createStore, combineReducers, applyMiddleware, compose} from "redux";
+import thunkMiddleware from 'redux-thunk';
 import userReducer from './user/index';
 import tasksReducer from './tasks/index';
 import errorsReducer from './errors/index';
@@ -9,11 +9,11 @@ const rootReducer = combineReducers({
     tasks: tasksReducer,
     errors: errorsReducer
 });
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
         rootReducer,
-        composeEnhancer(applyMiddleware(thunkMiddleware)),
+        composeEnhancers(applyMiddleware(thunkMiddleware)),
     );
 
 export default store;

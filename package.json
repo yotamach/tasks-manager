@@ -4,6 +4,9 @@
   "description": "",
   "scripts": {
     "start:client": "cd client && yarn start",
+    "start:server": "cd server && npm run start",
+    "install:client": "cd client && yarn install",
+    "install:server": "cd server && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
