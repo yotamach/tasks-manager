@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tasks-manager
+    working_directory: ~/tasks-manager/client
     # The primary container is an instance of the first image listed. The job's commands run in this container.
     docker:
       - image: circleci/node:12.18
@@ -28,5 +28,5 @@ jobs:
           paths:
             - node_modules
       - run:
-          name: Install npm wee
+          name: Bulid
           command: npm run build
