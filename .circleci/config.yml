@@ -1,7 +1,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/tasks-manager/client
+    working_directory: ~/tasks-manager
     # The primary container is an instance of the first image listed. The job's commands run in this container.
     docker:
       - image: circleci/node:12.18
@@ -21,12 +21,12 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
       - run:
-          name: Install npm wee
-          command: npm install
+          name: Install dependencies
+          command: cd client && npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
           paths:
-            - node_modules
+            - client/node_modules
       - run:
-          name: Bulid
-          command: npm run build
+          name: Bulid application
+          command: cd client && npm run build
