@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "start:client": "cd client && yarn start",
+    "build:client": "cd client && yarn build",
     "start:server": "cd server && npm run start",
     "install:client": "cd client && yarn install",
     "install:server": "cd server && npm install",
