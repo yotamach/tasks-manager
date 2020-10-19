@@ -2,7 +2,7 @@ import {actions} from './actionTypes';
 import {getErrorSelector} from './selectors';
 import store from '../index';
 
-const state = store.getState();
+//const state = store.getState();
 const {dispatch} = store;
 const getError = (state) => {
     return getErrorSelector(state);
