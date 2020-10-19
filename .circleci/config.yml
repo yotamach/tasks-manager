@@ -9,7 +9,7 @@ jobs:
           username: tasks-manager-docker-hub
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
     # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
-      - image: mongo:3.4.4-jessie
+      - image: mongo:4.4
         auth:
           username: tasks-manager-docker-hub
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
