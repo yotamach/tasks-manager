@@ -4,7 +4,7 @@ jobs:
     working_directory: ~/tasks-manager
     # The primary container is an instance of the first image listed. The job's commands run in this container.
     docker:
-      - image: circleci/node:4.8.2-jessie
+      - image: circleci/node:12.18
         auth:
           username: tasks-manager-docker-hub
           password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
