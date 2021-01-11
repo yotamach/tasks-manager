@@ -1,0 +1,28 @@
+.task-content{
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    justify-content: space-around;
+    .task-title{
+        margin: 8px 0px;
+        font-weight: bolder;
+        font-size: 14px;
+    }
+}
+.active{
+    
+}
+
+.tasks-list{
+    >.task-list-item{
+        .list-item{
+            .ui.buttons{
+                margin-top: 0px;
+                >.button{ 
+                    margin: 0px 5px;
+                }
+            } 
+        }
+        padding: 2px 5px;
+    }
+}

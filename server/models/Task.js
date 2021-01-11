@@ -11,6 +11,10 @@ const taskSchema = mongoose.Schema({
 		minglength: 5,
 		required: [true, 'End of date is missing']
 	},
+	description: {
+		type: String,
+		minglength: 5
+	},
 	status: {
 		type: String,
 		enum: ['defined', 'in progress', 'completed', 'accepted'],

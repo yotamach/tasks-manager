@@ -4,7 +4,7 @@ import store from '../index';
 import serviceRequest from './../serviceRequest';
 import {setServerError} from './../errors/actions';
 
-const state = store.getState();
+const state = store.getState().tasks;
 const {dispatch} = store;
 const getTasksList = (state) => {
     return getTasksListSelector(state.tasks);
@@ -18,7 +18,7 @@ const retrieveTasksList = () => {
     serviceRequest(
         '/api/tasks',
         'get',
-        actions.RETRIEVE_TASKS,
+        null,
         (response) => {
             dispatch({
                 type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
@@ -31,20 +31,31 @@ const retrieveTasksList = () => {
     );
 }
 
-const createTask = ({taskName,endOfTime,status}) => {
+const createTask = (newTask) => {
+    const task = {
+        taskName: newTask.taskName,
+        endOfDate: newTask.endOfDate,
+        description: newTask.taskDescription
+    }
     let tasks = [...state.tasks];
-    const createdTask = {
-        id: tasks.slice(-1).pop(),
-        taskName,
-        endOfTime,
-        status
-    };
-    tasks.push(createdTask);
-    const payload = {
-        tasks,
-        selectedTask: createdTask
-    };
-    return { type: actions.CREATE_TASK, payload };
+    serviceRequest(
+        '/api/tasks/createTask',
+        'post',
+        task,
+        (response) => {
+            tasks.push(response.data);
+            dispatch({
+                type: `${actions.CREATE_TASK}_SUCCESS`,
+                payload: {
+                    tasks,
+                    selectedTask: response.data
+                }
+            });
+        },
+        (err) => {
+            setServerError(err);
+        }
+    );
 };
 
 const updateTask = (id,task) => {
@@ -75,7 +86,7 @@ const removeTask = (id) => {
     serviceRequest(
         '/api/tasks/' + id,
         'delete',
-        actions.DELETE_TASK,
+        null,
         (response) => {
             dispatch({
                 type: `${actions.DELETE_TASK}_SUCCESS`,

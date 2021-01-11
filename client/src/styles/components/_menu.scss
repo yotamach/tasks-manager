@@ -1,0 +1,29 @@
+.app-header {
+    .app-menu {
+        margin-top: 10px !important;
+        background: $primary;
+        .item{
+            color: $white;
+            font-weight: bold;
+            &.active{
+                background: $menuItemBg;
+                color: $white;
+                &:hover{
+                    background: $menuItemBg_hvr;
+                    color: $grey1;
+                }
+            }
+            &::before{
+                display: none;
+            }
+            &::after{
+                display: none;
+            }
+            
+            &:hover{
+                background: $menuItemBg_hvr;
+                color: $grey1;
+            }
+        }
+    }
+}

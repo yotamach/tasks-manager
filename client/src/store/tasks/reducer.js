@@ -9,7 +9,7 @@ let initialState = {
 function tasksReducer(state = initialState, action) {
     const {payload} = action;
     switch (action.type) {
-        case actions.CREATE_TASK:
+        case `${actions.CREATE_TASK}_SUCCESS`:
         case actions.UPDATE_TASK:
         case actions.SELECT_TASK:
             state = {...state,...payload};

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import './NotFoundPage.scss';
 import { Header, Icon } from 'semantic-ui-react';
 
 export default class NotFoundPage extends Component {

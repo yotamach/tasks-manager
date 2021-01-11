@@ -8,12 +8,6 @@ const cookieParser = require("cookie-parser");
 
 const config = require("./config/key");
 
-// const mongoose = require("mongoose");
-// mongoose
-//   .connect(config.mongoURI, { useNewUrlParser: true })
-//   .then(() => console.log("DB connected"))
-//   .catch(err => console.error(err));
-`userName`
 const mongoose = require("mongoose");
 console.log(config.mongoURI);
 
@@ -38,6 +32,9 @@ app.use(cookieParser());
 app.use('/api/users', require('./routes/users'));
 app.use('/api/tasks', require('./routes/tasks'));
 
+app.get('*', function (req, res) {
+	res.status(301).json({ error: "REST server isnt exist" });
+});
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
 app.use('/uploads', express.static('uploads'));

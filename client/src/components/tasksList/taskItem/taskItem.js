@@ -1,5 +1,4 @@
 import React from 'react'
-import './taskItem.scss';
 import {List,Button} from 'semantic-ui-react';
 
 export default function TaskItem(props) {
@@ -7,11 +6,11 @@ export default function TaskItem(props) {
     const {_id}= task;
     const selectedClass = selectedTaskId === _id ? "active" : "";
     return (
-        <List.Item className={`list-item ${selectedClass}`}>
+        <List.Item className={`task-list-item ${selectedClass}`}>
             <List.Content floated='right'>
                 <Button.Group>
-                    <Button inverted color='red' icon='edit' onClick={(_id) => onUpdate(_id,task)} />
-                    <Button inverted color='blue' icon='delete' onClick={() => onDelete(_id)} />
+                    <Button inverted color='blue' icon='edit' onClick={(_id) => onUpdate(_id,task)} />
+                    <Button inverted color='red' icon='delete' onClick={() => onDelete(_id)} />
                 </Button.Group>
             </List.Content>
             <List.Content className="task-content">

@@ -9,9 +9,10 @@ const getError = (state) => {
 }
 
 const setServerError = (error) => {
+    const errorObj = !error.response ? { nessgae: "Server error" } : error;
     dispatch({
         type: actions.SET_SERVER_ERROR,
-        payload: error.response
+        payload: errorObj
     });
 };
 

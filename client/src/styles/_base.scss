@@ -1,0 +1,23 @@
+@import './colors';
+
+// common
+@import './common/errorMessgae';
+@import './common/popUp';
+
+//components
+@import './components/taskDetails';
+@import './components/footer';
+@import './components/header';
+@import './components/menu';
+@import './components/taskItem';
+@import './components/tasksList';
+
+//pages
+@import './pages/home';
+@import './pages/login';
+@import './pages/notFoundPage';
+@import './pages/signup';
+@import './pages/task';
+@import './pages/tasks';
+
+

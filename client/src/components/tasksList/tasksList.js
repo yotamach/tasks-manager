@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {selectTask, getSelectedTask, getTasksList, createTask, updateTask, removeTask, retrieveTasksList } from '../../store/tasks/actions';
 import { connect } from 'react-redux';
-import './tasksList.scss';
 import { List } from 'semantic-ui-react';
 import TaskItem from './taskItem/taskItem';
 
@@ -46,6 +45,8 @@ class TasksList extends Component {
         const {tasks,currentTask} = this.props;
         const {onUpdate,onDelete,onSelect} = this;
         const selectedTaskId = currentTask.id;
+        if(!tasks.length)
+            return (<div>There are no tasks!</div>);
         return tasks.map((task) => <TaskItem
             key={task.id}
             slectedTaskId={selectedTaskId}

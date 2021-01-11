@@ -14,7 +14,7 @@ export default class AppMenu extends Component {
         const { activeItem } = this.state;
         return (
             <div>
-                <Menu pointing>
+                <Menu pointing className="app-menu">
                     <Menu.Menu position='left'>
                         <Menu.Item
                             as={NavLink} to="/tasks"
@@ -23,6 +23,14 @@ export default class AppMenu extends Component {
                             onClick={this.handleItemClick}
                         >
                             Tasks
+                        </Menu.Item>
+                        <Menu.Item
+                            as={NavLink} to="/task"
+                            name='Shop'
+                            active={activeItem === 'task'}
+                            onClick={this.handleItemClick}
+                        >
+                            Task
                         </Menu.Item>
                     </Menu.Menu>
                     <Menu.Menu position='right'>
