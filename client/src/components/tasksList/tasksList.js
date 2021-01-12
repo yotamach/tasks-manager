@@ -13,22 +13,21 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        retrieveTasks: (task) => {
-            retrieveTasksList(dispatch);
+        retrieveTasks: () => {
+            retrieveTasksList();
 		},
 		createTask: (task) => {
-			const action = createTask(task);
-			dispatch(action);
+			createTask(task);
 		},
 		updateTask: (id,task) => {
 			const action = updateTask(id,task);
 			dispatch(action);
 		},
 		deleteTask: (id) => {
-			removeTask(id);
+            removeTask(id);
         },
         setSelectedTask: (id) => {
-			const action =  selectTask(id);
+			const action = selectTask(id);
 			dispatch(action);
 		}
 	}
@@ -48,7 +47,7 @@ class TasksList extends Component {
         if(!tasks.length)
             return (<div>There are no tasks!</div>);
         return tasks.map((task) => <TaskItem
-            key={task.id}
+            key={task._id}
             slectedTaskId={selectedTaskId}
             onSelect={() => onSelect(task.id)}
             task={task}
@@ -61,8 +60,10 @@ class TasksList extends Component {
         setSelectedTask(id);
     }
 
-    onUpdate = () => {
-        console.log('Updated!');
+    onUpdate = (_id,task) => {
+        //this.props.history.push('/home');
+        //this.props.history.push('/edit/'+_id);
+        console.log( this.context);
     }
 
     onDelete = (id) => {

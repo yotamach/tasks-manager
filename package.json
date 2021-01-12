@@ -19,8 +19,5 @@
   "bugs": {
     "url": "https://github.com/yotamach/tasks-manager/issues"
   },
-  "homepage": "https://github.com/yotamach/tasks-manager#readme",
-  "dependencies": {
-    "react-semantic-ui-datepickers": "^2.12.0"
-  }
+  "homepage": "https://github.com/yotamach/tasks-manager#readme"
 }

@@ -9,7 +9,7 @@ export default function TaskItem(props) {
         <List.Item className={`task-list-item ${selectedClass}`}>
             <List.Content floated='right'>
                 <Button.Group>
-                    <Button inverted color='blue' icon='edit' onClick={(_id) => onUpdate(_id,task)} />
+                    <Button inverted color='blue' icon='edit' onClick={() => onUpdate(_id,task)} />
                     <Button inverted color='red' icon='delete' onClick={() => onDelete(_id)} />
                 </Button.Group>
             </List.Content>

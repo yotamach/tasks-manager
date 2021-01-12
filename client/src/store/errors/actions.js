@@ -10,10 +10,10 @@ const getError = (state) => {
 
 const setServerError = (error) => {
     const errorObj = !error.response ? { nessgae: "Server error" } : error;
-    dispatch({
+    return {
         type: actions.SET_SERVER_ERROR,
         payload: errorObj
-    });
+    };
 };
 
 const clearServerError = () => {

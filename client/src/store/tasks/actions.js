@@ -53,7 +53,7 @@ const createTask = (newTask) => {
             });
         },
         (err) => {
-            setServerError(err);
+            dispatch(setServerError(err));
         }
     );
 };
@@ -94,7 +94,7 @@ const removeTask = (id) => {
             });
         },
         (err) => {
-            setServerError(err);
+            dispatch(setServerError(err));
         }
     );
 };
