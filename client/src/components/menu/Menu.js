@@ -25,7 +25,7 @@ export default class AppMenu extends Component {
                             Tasks
                         </Menu.Item>
                         <Menu.Item
-                            as={NavLink} to="/task"
+                            as={NavLink} to="/task/create"
                             name='Shop'
                             active={activeItem === 'task'}
                             onClick={this.handleItemClick}

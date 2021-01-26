@@ -69,6 +69,30 @@ router.get("/:id", (req, res) => {
 	});
 });
 
+router.put("/:id", (req, res) => {
+	console.log(req.body);
+	Task.findOneAndUpdate({
+		_id: req.params.id
+	},req.body, {new: true}, (err, task) => {
+		if (err)
+			return res.status(500).json({
+				success: false,
+				error: err.message
+			});
+		else {
+			if (!task)
+				return res.status(404).json({
+					success: false,
+					task: {}
+				});
+			return res.status(200).json({
+				success: true,
+				task
+			});
+		}
+	});
+});
+
 router.delete("/:id", (req, res) => {
 	Task.findByIdAndDelete({
 		_id: req.params.id

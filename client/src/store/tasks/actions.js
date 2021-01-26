@@ -58,28 +58,35 @@ const createTask = (newTask) => {
     );
 };
 
-const updateTask = (id,task) => {
-    const tasks = [...state.tasks];
-    let updatedTask = tasks[id];
-    updatedTask = {
-        id,
-        ...task
-    };
+const updateTask = (id,updateTask) => {
+    console.log(id)
+    const task = {
+        taskName: updateTask.taskName,
+        endOfDate: updateTask.endOfDate,
+        description: updateTask.taskDescription
+    }
     const payload = {
-        tasks: [...tasks,updatedTask],
-        selectedTask: updatedTask
+        id
     };
-    return { type: actions.UPDATE_TASK , payload };
+    serviceRequest(
+        '/api/tasks/' + id,
+        'put',
+        task,
+        (response) => {
+            payload.task = response.data.task;
+            dispatch({
+                type: `${actions.UPDATE_TASK}_SUCCESS`,
+                payload
+            });
+        },
+        (err) => {
+            dispatch(setServerError(err));
+        }
+    );
 };
 
-const selectTask = (id) => {
-    const tasks = [...state.tasks];
-    let selectedTask = tasks[id];
-    const payload = {
-        selectedTask: selectedTask
-    };
-    return { type: actions.SELECT_TASK , payload };
-};
+const selectTask = id => ({ type: actions.SELECT_TASK , payload: {id}});
+
 
 
 const removeTask = (id) => {

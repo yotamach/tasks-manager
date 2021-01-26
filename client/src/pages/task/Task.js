@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React from 'react'
 import TaskDetails from '../../components/taskDetails/taskDetails'
 
-export default class Task extends Component {
-    render() {
-        return (
-            <div className="create-task-form">
-                <TaskDetails />
-            </div>
-        )
-    }
+function Task() {
+    return (
+        <div className="task-form">
+            <TaskDetails />
+        </div>
+    )
 }
+
+export default Task;

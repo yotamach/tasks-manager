@@ -1,44 +1,90 @@
-import React, {useState} from 'react'
-import {Button, Input, Form, Header, TextArea} from 'semantic-ui-react'
-import SemanticDatepicker from 'react-semantic-ui-datepickers';
-import 'react-semantic-ui-datepickers/dist/react-semantic-ui-datepickers.css';
-import { createTask } from '../../store/tasks/actions';
+import React, {useEffect, useState} from 'react'
+import {Button, Form, Header} from 'semantic-ui-react'
+import {createTask, getSelectedTask, updateTask} from '../../store/tasks/actions';
+import {useParams} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {DateTimeInput} from 'semantic-ui-calendar-react';
+
+const mapStateToProps = (state) => {
+  return {
+    currentTask: getSelectedTask(state)
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    createNewTask: (task) => {
+      createTask(task);
+    },
+    updateExistingTask: (id,task) => {
+      updateTask(id,task);
+    }
+  }
+};
 
 function TaskDetails(props) {
+  const {currentTask} = props;
   const [task,
     setTask] = useState({taskName: '', endOfDate: '', taskDescription: ''});
+  const {id, mode} = useParams();
+
+  useEffect(() => {
+    if (mode !== 'create') {
+      setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description});
+    }
+    // eslint-disable-next-line
+  },[]);
 
   const handleSubmit = (event) => {
-    console.log(task);
+    const {createNewTask,updateExistingTask} = props;
     event.preventDefault();
-    createTask(task);
+    if(id) {
+      updateExistingTask(id,task);
+    } else {
+      createNewTask(task);
+    }
   }
-
+  console.log('task',task);
   return (
     <div>
       <Header as='h3'>Create new task</Header>
       <Form onSubmit={handleSubmit}>
         <Form.Group widths='equal'>
-          <Form.Field
+          <Form.Input
             id='form-input-control-task-name'
-            control={Input}
             label='Task name'
-            placeholder='Task name'
+            placeholder='Task name' 
             name='taskName'
-            onChange={(event) => setTask({...task,taskName: event.target.value})}/>
-          <SemanticDatepicker
-            label='Task end date'
-            placeholder='Task name'
-            name='taskEndDate'
-            onChange={(event, data) => setTask({...task,endOfDate: data.value})}/>
+            value={task.taskName || ''}
+            onChange={(event) => setTask({
+            ...task,
+            taskName: event.target.value
+          })}
+          />
+            <Form.Field>
+            <DateTimeInput
+              label='Task end date'
+              placeholder='Task end date'
+              name='taskEndDate'
+              value={task.endOfDate || ''}
+              iconPosition="left"
+              onChange={(index,event) => setTask({
+                ...task,
+                endOfDate: event.value
+              })}
+            />
+            </Form.Field>
         </Form.Group>
-        <Form.Field
+        <Form.TextArea
           id='form-textarea-control-opinion'
-          control={TextArea}
           label='Description'
           placeholder='Description'
           name='taskDescription'
-          onChange={(event) => setTask({...task,taskDescription: event.target.value})}/>
+          value={task.taskDescription || ''}
+          onChange={(event) => setTask({
+          ...task,
+          taskDescription: event.target.value
+        })}/>
         <Form.Field
           id='form-button-control-public'
           control={Button}
@@ -49,4 +95,4 @@ function TaskDetails(props) {
   )
 }
 
-export default TaskDetails;
+export default connect(mapStateToProps, mapDispatchToProps)(TaskDetails);

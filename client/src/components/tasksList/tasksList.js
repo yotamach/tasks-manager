@@ -1,21 +1,19 @@
-import React, { Component } from 'react'
-import {selectTask, getSelectedTask, getTasksList, createTask, updateTask, removeTask, retrieveTasksList } from '../../store/tasks/actions';
+import React from 'react'
+import {selectTask, getSelectedTask, getTasksList, createTask, updateTask, removeTask } from '../../store/tasks/actions';
 import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import TaskItem from './taskItem/taskItem';
+import { useHistory } from 'react-router-dom';
 
 const mapStateToProps = (state) => {
 	return {
-		currentTask: getSelectedTask(state),
+        currentTask: getSelectedTask(state),
         tasks: getTasksList(state)
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-        retrieveTasks: () => {
-            retrieveTasksList();
-		},
 		createTask: (task) => {
 			createTask(task);
 		},
@@ -33,51 +31,46 @@ const mapDispatchToProps = (dispatch) => {
 	}
 };
 
-class TasksList extends Component {
-    constructor(props) {
-        super(props);
-        const {retrieveTasks} = this.props;
-        retrieveTasks();
-    };
 
-    showTasks = () => {
-        const {tasks,currentTask} = this.props;
-        const {onUpdate,onDelete,onSelect} = this;
-        const selectedTaskId = currentTask.id;
-        if(!tasks.length)
+function TasksList(props) {
+    const history = useHistory();
+
+    const showTasks = () => {
+        const {tasks} = props;
+        if(!tasks || !tasks.length)
             return (<div>There are no tasks!</div>);
         return tasks.map((task) => <TaskItem
             key={task._id}
-            slectedTaskId={selectedTaskId}
-            onSelect={() => onSelect(task.id)}
+            onSelect={() => onSelect(task._id)}
             task={task}
             onUpdate={onUpdate}
-            onDelete={onDelete}
+            onDelete={() => onDelete(task._id)}
             />);
     }
-    onSelect = (id) => {
-        const {setSelectedTask} = this.props;
+
+
+    const onSelect = (id) => {
+        const {setSelectedTask} = props;
         setSelectedTask(id);
     }
 
-    onUpdate = (_id,task) => {
-        //this.props.history.push('/home');
-        //this.props.history.push('/edit/'+_id);
-        console.log( this.context);
+    const onUpdate = (_id,task) => {
+        const {setSelectedTask} = props;
+        setSelectedTask(_id);
+        history.push('/task/edit/'+_id);
     }
 
-    onDelete = (id) => {
-        const {deleteTask} = this.props;
+    const onDelete = (id) => {
+        const {deleteTask} = props;
         deleteTask(id);
     }
 
-    render() {
-        return (
-            <List className="tasks-list" divided verticalAlign='middle'>
-                {this.showTasks()}
-            </List>
-        )
-    }
+
+    return (
+        <List className="tasks-list" divided verticalAlign='middle'>
+            {showTasks()}
+        </List>
+    )
 }
 
 export default connect(
