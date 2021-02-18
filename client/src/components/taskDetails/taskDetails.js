@@ -1,14 +1,12 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Form, Header} from 'semantic-ui-react'
+import {Button, Form, Header, Radio} from 'semantic-ui-react'
 import {createTask, getSelectedTask, updateTask} from '../../store/tasks/actions';
-import {useParams} from 'react-router-dom';
+import {useHistory, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {DateTimeInput} from 'semantic-ui-calendar-react';
 
 const mapStateToProps = (state) => {
-  return {
-    currentTask: getSelectedTask(state)
-  };
+  return {currentTask: getSelectedTask(state)};
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -16,16 +14,17 @@ const mapDispatchToProps = (dispatch) => {
     createNewTask: (task) => {
       createTask(task);
     },
-    updateExistingTask: (id,task) => {
-      updateTask(id,task);
+    updateExistingTask: (id, task) => {
+      updateTask(id, task);
     }
   }
 };
 
 function TaskDetails(props) {
   const {currentTask} = props;
+  const history = useHistory();
   const [task,
-    setTask] = useState({taskName: '', endOfDate: '', taskDescription: ''});
+    setTask] = useState({taskName: '', endOfDate: '', taskDescription: '',status: 'defined'});
   const {id, mode} = useParams();
 
   useEffect(() => {
@@ -33,47 +32,47 @@ function TaskDetails(props) {
       setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description});
     }
     // eslint-disable-next-line
-  },[]);
+  }, []);
 
   const handleSubmit = (event) => {
-    const {createNewTask,updateExistingTask} = props;
+    const {createNewTask, updateExistingTask} = props;
     event.preventDefault();
-    if(id) {
-      updateExistingTask(id,task);
+    if (id) {
+      updateExistingTask(id, task);
     } else {
       createNewTask(task);
     }
+    history.push('/tasks');
   }
-  console.log('task',task);
+
   return (
-    <div>
+    <div className="task-details-form">
       <Header as='h3'>Create new task</Header>
       <Form onSubmit={handleSubmit}>
         <Form.Group widths='equal'>
           <Form.Input
             id='form-input-control-task-name'
             label='Task name'
-            placeholder='Task name' 
+            placeholder='Task name'
             name='taskName'
             value={task.taskName || ''}
             onChange={(event) => setTask({
             ...task,
             taskName: event.target.value
-          })}
-          />
-            <Form.Field>
+          })}/>
+          <Form.Field>
             <DateTimeInput
               label='Task end date'
               placeholder='Task end date'
               name='taskEndDate'
               value={task.endOfDate || ''}
               iconPosition="left"
-              onChange={(index,event) => setTask({
-                ...task,
-                endOfDate: event.value
-              })}
-            />
-            </Form.Field>
+              dateFormat="YYYY-MM-DD h:mm A"
+              onChange={(index, event) => setTask({
+              ...task,
+              endOfDate: event.value
+            })}/>
+          </Form.Field>
         </Form.Group>
         <Form.TextArea
           id='form-textarea-control-opinion'
@@ -85,6 +84,64 @@ function TaskDetails(props) {
           ...task,
           taskDescription: event.target.value
         })}/>
+        <Form.Group>
+        <Header as='h5'>Task status</Header>
+        <Form.Field>
+            <Radio
+              label='Defined'
+              name='radioGroup'
+              value='defined'
+              checked={task.status === 'defined'}
+              onChange={(event,{value}) => setTask({
+                ...task,
+                status: value
+              })}/>
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label='In progress'
+              name='radioGroup'
+              value='inProgress'
+              checked={task.status === 'inProgress'}
+              onChange={(event,{value}) => setTask({
+                ...task,
+                status: value
+              })}/>
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label='Completed'
+              name='radioGroup'
+              value='completed'
+              checked={task.status === 'completed'}
+              onChange={(event,{value}) => setTask({
+                ...task,
+                status: value
+              })}/>
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label='Accepted'
+              name='radioGroup'
+              value='accepted'
+              checked={task.status === 'accepted'}
+              onChange={(event,{value}) => setTask({
+                ...task,
+                status: value
+              })}/>
+          </Form.Field>
+          <Form.Field>
+            <Radio
+              label='Blocked'
+              name='radioGroup'
+              value='blocked'
+              checked={task.status === 'blocked'}
+              onChange={(event,{value}) => setTask({
+                ...task,
+                status: value
+              })}/>
+          </Form.Field>
+        </Form.Group>
         <Form.Field
           id='form-button-control-public'
           control={Button}

@@ -3,8 +3,9 @@ import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
 import serviceRequest from './../serviceRequest';
 import {setServerError} from './../errors/actions';
+import moment from 'moment';
 
-const state = store.getState().tasks;
+//const state = store.getState().tasks;
 const {dispatch} = store;
 const getTasksList = (state) => {
     return getTasksListSelector(state.tasks);
@@ -20,9 +21,10 @@ const retrieveTasksList = () => {
         'get',
         null,
         (response) => {
+            const tasksList = response.data.tasks.map(item => ({...item, endOfDate: moment(item.endOfDate).format("YYYY-MM-DD h:mm A")}));
             dispatch({
                 type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
-                payload: response.data
+                payload: tasksList
             });
         },
         (err) => {
@@ -37,18 +39,15 @@ const createTask = (newTask) => {
         endOfDate: newTask.endOfDate,
         description: newTask.taskDescription
     }
-    let tasks = [...state.tasks];
     serviceRequest(
         '/api/tasks/createTask',
         'post',
         task,
         (response) => {
-            tasks.push(response.data);
             dispatch({
                 type: `${actions.CREATE_TASK}_SUCCESS`,
                 payload: {
-                    tasks,
-                    selectedTask: response.data
+                    task: response.data.task
                 }
             });
         },
@@ -59,11 +58,11 @@ const createTask = (newTask) => {
 };
 
 const updateTask = (id,updateTask) => {
-    console.log(id)
     const task = {
         taskName: updateTask.taskName,
         endOfDate: updateTask.endOfDate,
-        description: updateTask.taskDescription
+        description: updateTask.taskDescription,
+        status: updateTask.status
     }
     const payload = {
         id

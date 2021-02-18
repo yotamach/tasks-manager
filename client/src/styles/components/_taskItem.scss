@@ -9,11 +9,13 @@
         font-size: 14px;
     }
 }
-.active{
-    
-}
 
 .tasks-list{
+
+    .task-item-row{
+        align-items: center;
+    }
+
     >.task-list-item{
         .list-item{
             .ui.buttons{

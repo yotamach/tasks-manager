@@ -12,16 +12,17 @@ function tasksReducer(state = initialState, action) {
     let updatedTasks = [];
     switch (action.type) {
         case `${actions.CREATE_TASK}_SUCCESS`:
-            return {...state,...payload}
+            tasks.push(payload.task);
+            state = {...state,tasks,selectedTask: payload.task};
+            return state;
         case `${actions.UPDATE_TASK}_SUCCESS`:
-            const {task} = payload;
             updatedTasks = tasks.map(curTask =>{
                 if(payload.id === curTask._id) {
-                    return task;
+                    return payload.task;
                 }
                 return curTask;
             });
-            state = {...state,tasks: updatedTasks,selectedTask: task};
+            state = {...state,tasks: updatedTasks,selectedTask: payload.task};
             return state;
         case actions.SELECT_TASK:
             let selectedTask = tasks.filter(task => task._id === payload.id)[0];
@@ -33,7 +34,7 @@ function tasksReducer(state = initialState, action) {
             state = {...state,tasks: updatedTasks};
             return state;
         case `${actions.RETRIEVE_TASKS}_SUCCESS`:
-            state = {...state,tasks: payload.tasks};
+            state = {...state,tasks: payload};
             return state;
         default:
             return state;

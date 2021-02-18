@@ -1,22 +1,26 @@
 import React from 'react'
-import {List,Button} from 'semantic-ui-react';
+import {Button, Label, Grid} from 'semantic-ui-react';
+import { handleStatusLabel, handleStatusLabelColor } from '../../../utils/Utils';
 
 export default function TaskItem(props) {
     const {task,onUpdate,onDelete} = props;
     const {_id}= task;
+    
+
     return (
-        <List.Item className={`task-list-item`}>
-            <List.Content floated='right'>
-                <Button.Group>
-                    <Button inverted color='blue' icon='edit' onClick={() => onUpdate(_id,task)} />
-                    <Button inverted color='red' icon='delete' onClick={() => onDelete(_id)} />
-                </Button.Group>
-            </List.Content>
-            <List.Content className="task-content">
+        <Grid celled='internally' className="task-item-row">
+            <Grid.Column width={10}>
                 <div className="task-title">{task.taskName}</div>
-                <div>{_id}</div>
-                <div>232432432432</div>
-           </List.Content>
-        </List.Item>
+            </Grid.Column>
+            <Grid.Column width={3}>
+                <Label color={handleStatusLabelColor(task.status)} horizontal>
+                    {handleStatusLabel(task.status)}
+                </Label>
+            </Grid.Column>
+            <Grid.Column width={3}>
+                <Button inverted color='blue' icon='edit' onClick={() => onUpdate(_id,task)} />
+                <Button inverted color='red' icon='delete' onClick={() => onDelete(_id)} />
+            </Grid.Column>
+        </Grid>
     )
 }

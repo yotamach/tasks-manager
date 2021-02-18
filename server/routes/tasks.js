@@ -28,7 +28,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/createTask", (req, res) => {
-	console.log(req.body);
 	const task = new Task({
 		...req.body,
 		status: 'defined',
@@ -70,7 +69,6 @@ router.get("/:id", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-	console.log(req.body);
 	Task.findOneAndUpdate({
 		_id: req.params.id
 	},req.body, {new: true}, (err, task) => {
