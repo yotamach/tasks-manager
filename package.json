@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/yotamach/tasks-manager/issues"
   },
-  "homepage": "https://github.com/yotamach/tasks-manager#readme"
+  "homepage": "https://github.com/yotamach/tasks-manager#readme",
+  "dependencies": {
+    "react": "^17.0.1"
+  }
 }

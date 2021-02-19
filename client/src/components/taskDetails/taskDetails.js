@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Button, Form, Header, Radio} from 'semantic-ui-react'
-import {createTask, getSelectedTask, updateTask} from '../../store/tasks/actions';
+import {createTask, getSelectedTask, selectTask, updateTask} from '../../store/tasks/actions';
 import {useHistory, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {DateTimeInput} from 'semantic-ui-calendar-react';
@@ -16,23 +16,29 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateExistingTask: (id, task) => {
       updateTask(id, task);
-    }
+    },
+    selectTask: (id) => selectTask(id) 
   }
 };
 
 function TaskDetails(props) {
+  const {id, mode} = useParams();
   const {currentTask} = props;
   const history = useHistory();
   const [task,
     setTask] = useState({taskName: '', endOfDate: '', taskDescription: '',status: 'defined'});
-  const {id, mode} = useParams();
 
   useEffect(() => {
     if (mode !== 'create') {
-      setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description});
+      if(!Object.keys(currentTask).length) {
+        const {selectTask} = props;
+        selectTask(id);
+        console.log(currentTask)
+      }
+      setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description, status: currentTask.status});
     }
     // eslint-disable-next-line
-  }, []);
+  }, [currentTask]);
 
   const handleSubmit = (event) => {
     const {createNewTask, updateExistingTask} = props;

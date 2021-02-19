@@ -25,8 +25,7 @@ function tasksReducer(state = initialState, action) {
             state = {...state,tasks: updatedTasks,selectedTask: payload.task};
             return state;
         case actions.SELECT_TASK:
-            let selectedTask = tasks.filter(task => task._id === payload.id)[0];
-            state = {...state,selectedTask};
+            state = {...state,selectedTask: payload};
             
             return state;
         case `${actions.DELETE_TASK}_SUCCESS`:

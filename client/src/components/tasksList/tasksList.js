@@ -34,7 +34,6 @@ const mapDispatchToProps = (dispatch) => {
 
 function TasksList(props) {
     const history = useHistory();
-
     const showTasks = () => {
         const {tasks} = props;
         if(!tasks || !tasks.length)
@@ -59,7 +58,7 @@ function TasksList(props) {
         setSelectedTask(_id);
         history.push('/task/edit/'+_id);
     }
-
+    
     const onDelete = (id) => {
         const {deleteTask} = props;
         deleteTask(id);

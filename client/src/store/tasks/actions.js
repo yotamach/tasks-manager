@@ -84,7 +84,22 @@ const updateTask = (id,updateTask) => {
     );
 };
 
-const selectTask = id => ({ type: actions.SELECT_TASK , payload: {id}});
+const selectTask = id => {
+    serviceRequest(
+        '/api/tasks/' + id,
+        'get',
+        null,
+        (response) => {
+            dispatch({
+                type: actions.SELECT_TASK,
+                payload: response.data.task
+            });
+        },
+        (err) => {
+            dispatch(setServerError(err));
+        }
+    );
+};
 
 
 
