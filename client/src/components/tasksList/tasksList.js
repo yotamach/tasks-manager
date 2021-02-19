@@ -25,8 +25,7 @@ const mapDispatchToProps = (dispatch) => {
             removeTask(id);
         },
         setSelectedTask: (id) => {
-			const action = selectTask(id);
-			dispatch(action);
+			selectTask(id);
 		}
 	}
 };
@@ -58,7 +57,7 @@ function TasksList(props) {
         setSelectedTask(_id);
         history.push('/task/edit/'+_id);
     }
-    
+
     const onDelete = (id) => {
         const {deleteTask} = props;
         deleteTask(id);
