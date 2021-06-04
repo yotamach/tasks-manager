@@ -24,7 +24,7 @@ function App() {
 							<Route exact path="/" component={AppHome}/>
 							<Route exact path="/tasks" component={Tasks}/>
 							<Route exact path={'/task/:mode'} component={Task}/>
-			  				<Route exact path={'/task/:mode/:id'} component={Task}/>
+							<Route exact path={'/task/:mode/:id'} component={Task}/>
 							<Route path="*" component={NotFoundPage}/>
 						</Switch>
 					</AppContainer>

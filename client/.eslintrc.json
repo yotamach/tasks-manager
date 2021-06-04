@@ -5,6 +5,11 @@
         "jest": true,
         "es6": true
     },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "plugins": ["import"],
     "extends": [
         "eslint:recommended",
