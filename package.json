@@ -5,7 +5,7 @@
   "scripts": {
     "start:client": "cd client && yarn start",
     "build:client": "cd client && yarn build",
-    "lint:client": "cd client && yarn run eslint .",
+    "lint:client": "cd client && eslint src/**/*.js src/**/*.jsx",
     "lint:server": "cd server && eslint .",
     "start:server": "cd server && npm run start",
     "install:client": "cd client && yarn install",

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Header } from 'semantic-ui-react';
 import AppMenu from '../menu/Menu';
-
+import PropTypes from 'prop-types';
 
 export default class AppHeader extends Component {
 	render() {
@@ -15,4 +15,8 @@ export default class AppHeader extends Component {
 			</div>
 		)
 	}
+}
+
+AppHeader.propTypes = {
+	title: PropTypes.string
 }

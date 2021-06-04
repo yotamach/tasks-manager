@@ -3,6 +3,7 @@ import {Fragment} from 'react';
 import {Button, Label, Grid} from 'semantic-ui-react';
 import ConfirmDialog from '../../../common/confirmDialog/confirmDialog';
 import {handleStatusLabel, handleStatusLabelColor} from '../../../utils/Utils';
+import PropTypes from 'prop-types';
 
 export default function TaskItem(props) {
 	const {task, onUpdate, onDelete} = props;
@@ -28,4 +29,10 @@ export default function TaskItem(props) {
 			<ConfirmDialog header='Are you sure?' open={confirmState} onConfirm={() => { onDelete(_id); setConfirmState(false) }} onClose={() => setConfirmState(false)} />
 		</Fragment>
 	)
+}
+
+TaskItem.propTypes = {
+	task: PropTypes.object,
+	onUpdate: PropTypes.func,
+	onDelete: PropTypes.func
 }

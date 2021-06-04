@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { List } from 'semantic-ui-react';
 import TaskItem from './taskItem/taskItem';
 import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = (state) => {
 	return {
@@ -75,3 +76,9 @@ export default connect(
 	mapStateToProps,
 	mapDispatchToProps
 )(TasksList);
+
+TasksList.propTypes = {
+	deleteTask: PropTypes.func,
+	tasks: PropTypes.array,
+	setSelectedTask: PropTypes.func
+};

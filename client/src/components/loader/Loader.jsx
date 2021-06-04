@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Image, Loader, Segment } from './node_modules/semantic-ui-react'
 
 const LoaderSpin = () => (
@@ -8,4 +8,4 @@ const LoaderSpin = () => (
 	</Segment>
 )
 
-export default LoaderSpin
+export default LoaderSpin;

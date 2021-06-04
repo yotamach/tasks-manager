@@ -4,6 +4,7 @@ import {createTask, getSelectedTask, selectTask, updateTask} from '../../store/t
 import {useHistory, useParams} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {DateTimeInput} from 'semantic-ui-calendar-react';
+import PropTypes from 'prop-types';
 
 const mapStateToProps = (state) => {
 	return {currentTask: getSelectedTask(state)};
@@ -33,7 +34,6 @@ function TaskDetails(props) {
 			if(!Object.keys(currentTask).length) {
 				const {selectTask} = props;
 				selectTask(id);
-				console.log(currentTask)
 			}
 			setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description, status: currentTask.status});
 		}
@@ -156,6 +156,13 @@ function TaskDetails(props) {
 			</Form>
 		</div>
 	)
+}
+
+TaskDetails.propTypes = {
+	createNewTask: PropTypes.func,
+	updateExistingTask: PropTypes.func,
+	selectTask: PropTypes.func,
+	currentTask: PropTypes.object
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskDetails);

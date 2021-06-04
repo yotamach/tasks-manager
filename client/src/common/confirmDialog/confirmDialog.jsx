@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Confirm} from 'semantic-ui-react';
+import PropTypes from 'prop-types';
 
 export default function ConfirmDialog(props) {
 	const [open,
@@ -15,3 +16,10 @@ export default function ConfirmDialog(props) {
 		onConfirm={() => props.onConfirm()}
 		size='tiny'/>)
 }
+
+ConfirmDialog.propTypes = {
+	onConfirm: PropTypes.func,
+	onClose: PropTypes.func,
+	open: PropTypes.bool,
+	title: PropTypes.string
+};

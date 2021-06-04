@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
-import { Modal } from 'semantic-ui-react'
+import { Modal, Button } from 'semantic-ui-react'
+import { useDispatch } from 'react-redux'
+
 export default function popUp(props) {
 	const {size} = props;
 	const [popupState,setPopupState] = useState({
 		show: false,
 		isUpdated: false
 	});
+	const dispatch = useDispatch()
+
 	return (
 		<Modal
 			size={size}
