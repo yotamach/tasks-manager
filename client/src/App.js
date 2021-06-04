@@ -13,26 +13,26 @@ import Task from './pages/task/Task';
 import AppContainer from './components/container/Container';
 
 function App() {
-  const {appName} = AppDetails;
-  return (
-    <Provider store={store}>
-      <div className="App">
-        <Router>
-          <AppHeader title={appName}/>
-          <AppContainer>
-            <Switch>
-              <Route exact path="/" component={AppHome}/>
-              <Route exact path="/tasks" component={Tasks}/>
-			  <Route exact path={'/task/:mode'} component={Task}/>
-			  <Route exact path={'/task/:mode/:id'} component={Task}/>
-              <Route path="*" component={NotFoundPage}/>
-            </Switch>
-          </AppContainer>
-        </Router>
-        <AppFooter/>
-      </div>
-    </Provider>
-  );
+	const {appName} = AppDetails;
+	return (
+		<Provider store={store}>
+			<div className="App">
+				<Router>
+					<AppHeader title={appName}/>
+					<AppContainer>
+						<Switch>
+							<Route exact path="/" component={AppHome}/>
+							<Route exact path="/tasks" component={Tasks}/>
+							<Route exact path={'/task/:mode'} component={Task}/>
+			  				<Route exact path={'/task/:mode/:id'} component={Task}/>
+							<Route path="*" component={NotFoundPage}/>
+						</Switch>
+					</AppContainer>
+				</Router>
+				<AppFooter/>
+			</div>
+		</Provider>
+	);
 }
 
 export default App;

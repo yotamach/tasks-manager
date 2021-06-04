@@ -3,7 +3,7 @@ const getUserSelector = (state) => state.currentUser;
 const getWinnerSelector = (state) => state.winner;
 
 export {
-    getBoardSelector,
-    getUserSelector,
-    getWinnerSelector
+	getBoardSelector,
+	getUserSelector,
+	getWinnerSelector
 };

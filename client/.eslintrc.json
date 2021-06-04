@@ -7,8 +7,7 @@
     },
     "plugins": ["import"],
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended"
+        "eslint:recommended"
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
@@ -16,11 +15,11 @@
     },
     "rules": {
         "indent": [
-            "error",
+            "warn",
             "tab"
         ],
         "no-console": "warn",
-        "no-eval": "error",
+        "no-eval": "warn",
         "import/first": "error"
     }
 }

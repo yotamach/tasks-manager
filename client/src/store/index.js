@@ -5,15 +5,15 @@ import tasksReducer from './tasks/index';
 import errorsReducer from './errors/index';
 
 const rootReducer = combineReducers({
-    user: userReducer,
-    tasks: tasksReducer,
-    errors: errorsReducer
+	user: userReducer,
+	tasks: tasksReducer,
+	errors: errorsReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(
-        rootReducer,
-        composeEnhancers(applyMiddleware(thunkMiddleware)),
-    );
+	rootReducer,
+	composeEnhancers(applyMiddleware(thunkMiddleware)),
+);
 
 export default store;
