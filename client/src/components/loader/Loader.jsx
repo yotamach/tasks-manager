@@ -1,11 +1,14 @@
-import React from 'react'
-import { Image, Loader, Segment } from './node_modules/semantic-ui-react'
+import React, { useEffect, useState } from 'react'
+import { getLoaderSelector } from '../../store/loader/selectors'
+import { CircularProgress } from './node_modules/semantic-ui-react'
 
-const LoaderSpin = () => (
-	<Segment inverted>
-		<Loader active inverted />
-		<Image src='/images/wireframe/short-paragraph.png' />
-	</Segment>
-)
+const Loader = () => {
+	const [isLoading, setLoading] = useState(false)
+	useEffect(() => {
+		setLoading(getLoaderSelector);
+	}, [])
 
-export default LoaderSpin;
+	return (isLoading && <CircularProgress />);
+}
+
+export default Loader;

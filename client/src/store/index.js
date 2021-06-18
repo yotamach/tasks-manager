@@ -3,11 +3,13 @@ import thunkMiddleware from 'redux-thunk';
 import userReducer from './user/index';
 import tasksReducer from './tasks/index';
 import errorsReducer from './errors/index';
+import loaderReducer from "./loader";
 
 const rootReducer = combineReducers({
 	user: userReducer,
 	tasks: tasksReducer,
-	errors: errorsReducer
+	errors: errorsReducer,
+	loader: loaderReducer
 });
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
