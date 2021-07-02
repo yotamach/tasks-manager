@@ -12,7 +12,8 @@
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
-        "sourceType": "module"
+        "sourceType": "module",
+        "jsx": true
     },
     "globals": {
       "exampleGlobalVariable": true
@@ -22,6 +23,8 @@
             "error",
             "tab"
         ],
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
         "no-eval": "error",
         "import/first": "error"
     }
