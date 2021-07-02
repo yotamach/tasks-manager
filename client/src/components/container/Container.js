@@ -29,7 +29,7 @@ function AppContainer(props) {
 }
 
 AppContainer.propTypes = {
-	children: PropTypes.children,
+	children: PropTypes.element,
 	retrieveTasks: PropTypes.func
 }
 
