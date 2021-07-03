@@ -5,7 +5,7 @@ const {dispatch} = store;
 const setLoader = (loaderState) => {
 	dispatch({
 		type: actions.SET_LOADER,
-		payload: loaderState
+		payload: { loader: loaderState }
 	});
 };
 

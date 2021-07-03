@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import { Loader } from 'semantic-ui-react'
-import { getLoaderSelector } from '../../store/loader/selectors'
+import React from 'react'
+import { Loader, Dimmer, Segment, Image } from 'semantic-ui-react'
 
 const LoaderSpin = () => {
-	const [isLoading, setLoading] = useState(false)
-	useEffect(() => {
-		setLoading(getLoaderSelector);
-	}, [])
-
-	return (isLoading && <Loader />);
+	return (<Segment>
+		<Dimmer active inverted>
+			<Loader>Loading</Loader>
+		</Dimmer>
+		<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+	</Segment>);
 }
 
 export default LoaderSpin;
