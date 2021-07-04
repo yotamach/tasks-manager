@@ -6,6 +6,7 @@
     "start:client": "cd client && yarn start",
     "build:client": "cd client && yarn build",
     "lint:client": "cd client && yarn run eslint src/**/*.js src/**/*.jsx",
+    "lint-ts:client": "cd client && eslint --ext=jsx,ts,tsx src",
     "lint:server": "cd server && eslint .",
     "start:server": "cd server && npm run start",
     "install:client": "cd client && yarn install",
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/yotamach/tasks-manager#readme",
   "dependencies": {
+    "cypress": "^7.5.0",
     "react": "^17.0.1"
   }
 }

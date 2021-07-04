@@ -5,6 +5,7 @@ import { List } from 'semantic-ui-react';
 import TaskItem from './taskItem/taskItem';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import LoaderSpin from '../loader/Loader';
 
 const mapStateToProps = (state) => {
 	return {
@@ -67,6 +68,7 @@ function TasksList(props) {
 
 	return (
 		<List className="tasks-list" divided verticalAlign='middle'>
+			<LoaderSpin />
 			{showTasks()}
 		</List>
 	)

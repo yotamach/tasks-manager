@@ -1,11 +1,13 @@
 import React from 'react'
-import { Image, Loader, Segment } from './node_modules/semantic-ui-react'
+import { Loader, Dimmer, Segment, Image } from 'semantic-ui-react'
 
-const LoaderSpin = () => (
-	<Segment inverted>
-		<Loader active inverted />
-		<Image src='/images/wireframe/short-paragraph.png' />
-	</Segment>
-)
+const LoaderSpin = () => {
+	return (<Segment>
+		<Dimmer active inverted>
+			<Loader>Loading</Loader>
+		</Dimmer>
+		<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
+	</Segment>);
+}
 
 export default LoaderSpin;

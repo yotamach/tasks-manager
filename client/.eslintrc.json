@@ -5,11 +5,6 @@
         "jest": true,
         "es6": true
     },
-    "settings": {
-        "react": {
-            "version": "detect"
-        }
-    },
     "plugins": ["import"],
     "extends": [
         "eslint:recommended",
@@ -17,15 +12,20 @@
     ],
     "parserOptions": {
         "ecmaVersion": 2018,
-        "sourceType": "module"
+        "sourceType": "module",
+        "jsx": true
+    },
+    "globals": {
+      "exampleGlobalVariable": true
     },
     "rules": {
         "indent": [
-            "warn",
+            "error",
             "tab"
         ],
-        "no-console": "warn",
-        "no-eval": "warn",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "no-eval": "error",
         "import/first": "error"
     }
 }

@@ -4,6 +4,7 @@ import store from '../index';
 import serviceRequest from './../serviceRequest';
 import {setServerError} from './../errors/actions';
 import moment from 'moment';
+import { setLoader } from '../loader/actions';
 
 //const state = store.getState().tasks;
 const {dispatch} = store;
@@ -16,6 +17,7 @@ const getSelectedTask = (state) => {
 }
 
 const retrieveTasksList = () => {
+	setLoader(true);
 	serviceRequest(
 		'/api/tasks',
 		'get',
@@ -26,9 +28,11 @@ const retrieveTasksList = () => {
 				type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
 				payload: tasksList
 			});
+			setLoader(false);
 		},
 		(err) => {
 			setServerError(err);
+			setLoader(false);
 		}
 	);
 }
@@ -50,9 +54,11 @@ const createTask = (newTask) => {
 					task: response.data.task
 				}
 			});
+			setLoader(false);
 		},
 		(err) => {
 			dispatch(setServerError(err));
+			setLoader(false);
 		}
 	);
 };
@@ -67,6 +73,7 @@ const updateTask = (id,updateTask) => {
 	const payload = {
 		id
 	};
+	setLoader(true);
 	serviceRequest(
 		'/api/tasks/' + id,
 		'put',
@@ -77,9 +84,11 @@ const updateTask = (id,updateTask) => {
 				type: `${actions.UPDATE_TASK}_SUCCESS`,
 				payload
 			});
+			setLoader(false);
 		},
 		(err) => {
 			dispatch(setServerError(err));
+			setLoader(false);
 		}
 	);
 };
