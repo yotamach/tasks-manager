@@ -4,6 +4,9 @@
   "description": "",
   "scripts": {
     "start:client": "cd client && yarn start",
+    "build:client": "cd client && yarn build",
+    "lint:client": "cd client && yarn run eslint src/**/*.js src/**/*.jsx",
+    "lint:server": "cd server && eslint .",
     "start:server": "cd server && npm run start",
     "install:client": "cd client && yarn install",
     "install:server": "cd server && npm install",
@@ -18,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/yotamach/tasks-manager/issues"
   },
-  "homepage": "https://github.com/yotamach/tasks-manager#readme"
+  "homepage": "https://github.com/yotamach/tasks-manager#readme",
+  "dependencies": {
+    "react": "^17.0.1"
+  }
 }

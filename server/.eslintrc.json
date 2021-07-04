@@ -1,0 +1,27 @@
+{
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true,
+        "es6": true
+    },
+    "plugins": ["import"],
+    "extends": [
+        "eslint:recommended"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "globals": {
+      "exampleGlobalVariable": true
+    },
+    "rules": {
+        "indent": [
+            "error",
+            "tab"
+        ],
+        "no-eval": "error",
+        "import/first": "error"
+    }
+}

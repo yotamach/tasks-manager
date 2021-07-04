@@ -5,6 +5,11 @@
         "jest": true,
         "es6": true
     },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "plugins": ["import"],
     "extends": [
         "eslint:recommended",
@@ -16,11 +21,11 @@
     },
     "rules": {
         "indent": [
-            "error",
+            "warn",
             "tab"
         ],
         "no-console": "warn",
-        "no-eval": "error",
+        "no-eval": "warn",
         "import/first": "error"
     }
 }

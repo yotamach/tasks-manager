@@ -3,97 +3,129 @@ import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
 import serviceRequest from './../serviceRequest';
 import {setServerError} from './../errors/actions';
+import moment from 'moment';
 
-const state = store.getState();
+//const state = store.getState().tasks;
 const {dispatch} = store;
 const getTasksList = (state) => {
-    return getTasksListSelector(state.tasks);
+	return getTasksListSelector(state.tasks);
 }
 
 const getSelectedTask = (state) => {
-    return getSelectedTaskSelector(state.tasks);
+	return getSelectedTaskSelector(state.tasks);
 }
 
 const retrieveTasksList = () => {
-    serviceRequest(
-        '/api/tasks',
-        'get',
-        actions.RETRIEVE_TASKS,
-        (response) => {
-            dispatch({
-                type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
-                payload: response.data
-            });
-        },
-        (err) => {
-            setServerError(err);
-        }
-    );
+	serviceRequest(
+		'/api/tasks',
+		'get',
+		null,
+		(response) => {
+			const tasksList = response.data.tasks.map(item => ({...item, endOfDate: moment(item.endOfDate).format("YYYY-MM-DD h:mm A")}));
+			dispatch({
+				type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
+				payload: tasksList
+			});
+		},
+		(err) => {
+			setServerError(err);
+		}
+	);
 }
 
-const createTask = ({taskName,endOfTime,status}) => {
-    let tasks = [...state.tasks];
-    const createdTask = {
-        id: tasks.slice(-1).pop(),
-        taskName,
-        endOfTime,
-        status
-    };
-    tasks.push(createdTask);
-    const payload = {
-        tasks,
-        selectedTask: createdTask
-    };
-    return { type: actions.CREATE_TASK, payload };
+const createTask = (newTask) => {
+	const task = {
+		taskName: newTask.taskName,
+		endOfDate: newTask.endOfDate,
+		description: newTask.taskDescription
+	}
+	serviceRequest(
+		'/api/tasks/createTask',
+		'post',
+		task,
+		(response) => {
+			dispatch({
+				type: `${actions.CREATE_TASK}_SUCCESS`,
+				payload: {
+					task: response.data.task
+				}
+			});
+		},
+		(err) => {
+			dispatch(setServerError(err));
+		}
+	);
 };
 
-const updateTask = (id,task) => {
-    const tasks = [...state.tasks];
-    let updatedTask = tasks[id];
-    updatedTask = {
-        id,
-        ...task
-    };
-    const payload = {
-        tasks: [...tasks,updatedTask],
-        selectedTask: updatedTask
-    };
-    return { type: actions.UPDATE_TASK , payload };
+const updateTask = (id,updateTask) => {
+	const task = {
+		taskName: updateTask.taskName,
+		endOfDate: updateTask.endOfDate,
+		description: updateTask.taskDescription,
+		status: updateTask.status
+	}
+	const payload = {
+		id
+	};
+	serviceRequest(
+		'/api/tasks/' + id,
+		'put',
+		task,
+		(response) => {
+			payload.task = response.data.task;
+			dispatch({
+				type: `${actions.UPDATE_TASK}_SUCCESS`,
+				payload
+			});
+		},
+		(err) => {
+			dispatch(setServerError(err));
+		}
+	);
 };
 
-const selectTask = (id) => {
-    const tasks = [...state.tasks];
-    let selectedTask = tasks[id];
-    const payload = {
-        selectedTask: selectedTask
-    };
-    return { type: actions.SELECT_TASK , payload };
+const selectTask = id => {
+	serviceRequest(
+		'/api/tasks/' + id,
+		'get',
+		null,
+		(response) => {
+			dispatch({
+				type: actions.SELECT_TASK,
+				payload: response.data.task
+			});
+		},
+		(err) => {
+			dispatch(setServerError(err));
+		}
+	);
 };
+
 
 
 const removeTask = (id) => {
-    serviceRequest(
-        '/api/tasks/' + id,
-        'delete',
-        actions.DELETE_TASK,
-        (response) => {
-            dispatch({
-                type: `${actions.DELETE_TASK}_SUCCESS`,
-                payload: {id}
-            });
-        },
-        (err) => {
-            setServerError(err);
-        }
-    );
+	serviceRequest(
+		'/api/tasks/' + id,
+		'delete',
+		null,
+		() => {
+			dispatch({
+				type: `${actions.DELETE_TASK}_SUCCESS`,
+				payload: {id}
+			});
+		},
+		(err) => {
+			dispatch(setServerError(err));
+		}
+	);
 };
 
 export {
-    getTasksList,
-    getSelectedTask,
-    retrieveTasksList,
-    createTask,
-    updateTask,
-    removeTask,
-    selectTask
+	getTasksList,
+	getSelectedTask,
+	retrieveTasksList,
+	createTask,
+	updateTask,
+	removeTask,
+	selectTask
 };

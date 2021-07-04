@@ -1,7 +1,32 @@
-version: 2.1
-orbs:
-  node: circleci/node@3.0.0
-workflows:
-  node-tests:
-    jobs:
-      - node/test
+version: 2
+jobs:
+  build:
+    working_directory: ~/tasks-manager
+    # The primary container is an instance of the first image listed. The job's commands run in this container.
+    docker:
+      - image: circleci/node:12.18
+        auth:
+          username: tasks-manager-docker-hub
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    # The secondary container is an instance of the second listed image which is run in a common network where ports exposed on the primary container are available on localhost.
+      - image: mongo:4.4
+        auth:
+          username: tasks-manager-docker-hub
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    steps:
+      - checkout
+      - run:
+          name: Update npm
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+      - run:
+          name: Install dependencies
+          command: cd client && npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package-lock.json" }}
+          paths:
+            - client/node_modules
+      - run:
+          name: Bulid application
+          command: cd client && npm run build

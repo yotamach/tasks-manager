@@ -1,9 +1,10 @@
 import React from 'react'
 
 export default function errorMessgae() {
-    return (
-        <div>
+    
+	return (
+		<div>
             
-        </div>
-    )
+		</div>
+	)
 }
