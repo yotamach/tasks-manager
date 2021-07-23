@@ -30,5 +30,9 @@ jobs:
         run: npm run install:client
 
       # Runs a set of commands using the runners shell
+      - name: Install eslint
+        run: npm install -g eslint
+
+      # Runs a set of commands using the runners shell
       - name: Run eslint
         run: npm run lint:client
