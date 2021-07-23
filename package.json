@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:client": "cd client && yarn start",
-    "build:client": "cd client && yarn build",
-    "lint:client": "cd client && yarn run eslint src/**/*.js src/**/*.jsx",
-    "lint-ts:client": "cd client && eslint --ext=jsx,ts,tsx src",
+    "start:client": "cd client && npm run start:prod",
+    "build:client": "cd client && npm run build:prod",
+    "lint:client": "cd client && npm run eslint src/**/*.js src/**/*.jsx",
     "lint:server": "cd server && eslint .",
     "start:server": "cd server && npm run start",
     "install:client": "cd client && yarn install",
