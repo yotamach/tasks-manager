@@ -670,9 +670,9 @@ module.exports = function (webpackEnv) {
 			isEnvProduction &&
         fs.existsSync(swSrc) &&
         new WorkboxWebpackPlugin.InjectManifest({
-          swSrc,
-          dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
-          exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/],
+        	swSrc,
+        	dontCacheBustURLsMatching: /\.[0-9a-f]{8}\./,
+        	exclude: [/\.map$/, /asset-manifest\.json$/, /LICENSE/],
         	//Bump up the default maximum size (2mb) that's precached,
         	// to make lazy-loading failure scenarios less likely.
         	// See https://github.com/cra-template/pwa/issues/13#issuecomment-722667270
@@ -695,7 +695,7 @@ module.exports = function (webpackEnv) {
         	tsconfig: paths.appTsConfig,
         	reportFiles: [
         	// This one is specifically to match during CI tests,
-          // as micromatch doesn't match
+        		// as micromatch doesn't match
         	// '../cra-template-typescript/template/src/App.tsx'
         	// otherwise.
         	'../**/src/**/*.{ts,tsx}',

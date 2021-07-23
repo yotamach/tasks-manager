@@ -20,6 +20,9 @@ jobs:
           command: 'sudo npm install -g npm@latest'
       - restore_cache:
           key: dependency-cache-{{ checksum "package-lock.json" }}
+            - run:
+          name: Install eslint globally
+          command: npm install -g eslint
       - run:
           name: Install dependencies
           command: cd client && npm install
