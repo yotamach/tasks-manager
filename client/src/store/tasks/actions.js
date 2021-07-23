@@ -43,6 +43,7 @@ const createTask = (newTask) => {
 		endOfDate: newTask.endOfDate,
 		description: newTask.taskDescription
 	}
+	setLoader(true);
 	serviceRequest(
 		'/api/tasks/createTask',
 		'post',

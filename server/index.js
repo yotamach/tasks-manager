@@ -9,9 +9,8 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 const mongoose = require("mongoose");
-console.log(`mongodb://${config.userName}:${config.password}@${config.mongoURI}/${config.DBname}?retryWrites=true&w=majority`);
 
-mongoose.connect(`mongodb://${config.userName}:${config.password}@${config.mongoURI}/${config.DBname}?retryWrites=true&w=majority`,
+mongoose.connect(`mongodb+srv://${config.userName}:${config.password}@${config.mongoURI}/${config.DBname}?retryWrites=true&w=majority`,
 	{
 		useNewUrlParser: true, useUnifiedTopology: true,
 		useCreateIndex: true, useFindAndModify: false

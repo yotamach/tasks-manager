@@ -1,6 +1,6 @@
 import * as axios from 'axios';
 import { clearServerError } from './errors/actions';
-const baseUrl = 'http://localhost:5000';
+const baseUrl = process.env.SERVER_URL;
 
 const serviceRequest = (url,method,data,successMethod,failureMethod) => {
 	clearServerError();
