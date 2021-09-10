@@ -28,3 +28,10 @@
         padding: 2px 5px;
     }
 }
+
+.chip{
+    >.MuiChip-label{
+        color: white;
+        font-weight: 600;
+    }
+}

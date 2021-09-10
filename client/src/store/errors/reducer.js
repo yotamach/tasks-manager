@@ -1,7 +1,7 @@
 import {actions} from './actionTypes';
 
 let initialState = {
-	error: {}
+	error: null
 };
 
 function errorsReducer(state = initialState, action) {

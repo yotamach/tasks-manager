@@ -25,7 +25,8 @@
         ],
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "no-eval": "error",
+        "no-unused-vars": "warn",
+        "no-eval": "warn",
         "import/first": "error"
     }
 }

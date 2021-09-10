@@ -1,159 +1,119 @@
-import React, {useEffect, useState} from 'react'
-import {Button, Form, Header, Radio} from 'semantic-ui-react'
-import {createTask, getSelectedTask, selectTask, updateTask} from '../../store/tasks/actions';
+import React, {useEffect} from 'react'
+import {createTask, selectTask, updateTask} from '../../store/tasks/actions';
 import {useHistory, useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {DateTimeInput} from 'semantic-ui-calendar-react';
+import { useSelector } from 'react-redux';
+import { useForm } from "react-hook-form";
 import PropTypes from 'prop-types';
+import { makeStyles, Typography, Grid, Button } from '@material-ui/core';
+import { FormTextField, FormTextAreaField, RadioGroupField } from 'common/form/FormFields';
+import moment from 'moment';
+import { StatusOptions } from 'constans/task.consts';
 
-const mapStateToProps = (state) => {
-	return {currentTask: getSelectedTask(state)};
-};
-
-const mapDispatchToProps = () => {
-	return {
-		createNewTask: (task) => {
-			createTask(task);
-		},
-		updateExistingTask: (id, task) => {
-			updateTask(id, task);
-		},
-		selectTask: (id) => selectTask(id) 
+const useStyles = makeStyles({
+	row: {
+		margin: 1
+	},
+	firstLineInput: {
+		width: '49%',
 	}
-};
+});
 
-function TaskDetails(props) {
+function TaskDetails() {
+	const classes = useStyles();
+
+	const {selectedTask} = useSelector(state => state.tasks);
+	const { handleSubmit, formState, control, reset } = useForm({
+		defaultValues: {
+			taskName: "",
+			taskDascripton: "",
+			taskEndDate: "",
+			taskStatus: "defined",
+		}
+	});
 	const {id, mode} = useParams();
-	const {currentTask} = props;
 	const history = useHistory();
-	const [task,
-		setTask] = useState({taskName: '', endOfDate: '', taskDescription: '',status: 'defined'});
 
 	useEffect(() => {
 		if (mode !== 'create') {
-			if(!Object.keys(currentTask).length) {
-				const {selectTask} = props;
+			if (!selectedTask || !Object.keys(selectedTask).length)
 				selectTask(id);
-			}
-			setTask({taskName: currentTask.taskName, endOfDate: currentTask.endOfDate, taskDescription: currentTask.description, status: currentTask.status});
+			reset({
+				taskName: selectedTask.taskName,
+				taskEndDate: moment(selectedTask.endOfDate).format('yyyy-MM-DD'),
+				taskDascripton: selectedTask.description,
+				taskStatus: selectedTask.status,
+			});
+		} else {
+			reset();
 		}
 		// eslint-disable-next-line
-  }, [currentTask]);
+  }, [selectedTask]);
 
-	const handleSubmit = (event) => {
-		const {createNewTask, updateExistingTask} = props;
-		event.preventDefault();
-		if (id) {
-			updateExistingTask(id, task);
-		} else {
-			createNewTask(task);
+	const onSubmit = (data) => {
+		if (formState.isDirty) {
+			if (id) {
+				console.log('updating...');
+				updateTask(id, data);
+			} else {
+				createTask(data);
+			}
+			history.push('/tasks');
 		}
-		history.push('/tasks');
 	}
 
 	return (
 		<div className="task-details-form">
-			<Header as='h3'>Create new task</Header>
-			<Form onSubmit={handleSubmit}>
-				<Form.Group widths='equal'>
-					<Form.Input
-						id='form-input-control-task-name'
-						label='Task name'
-						placeholder='Task name'
-						name='taskName'
-						value={task.taskName || ''}
-						onChange={(event) => setTask({
-							...task,
-							taskName: event.target.value
-						})}/>
-					<Form.Field>
-						<DateTimeInput
-							label='Task end date'
-							placeholder='Task end date'
-							name='taskEndDate'
-							value={task.endOfDate || ''}
-							iconPosition="left"
-							dateFormat="YYYY-MM-DD h:mm A"
-							onChange={(index, event) => setTask({
-								...task,
-								endOfDate: event.value
-							})}/>
-					</Form.Field>
-				</Form.Group>
-				<Form.TextArea
-					id='form-textarea-control-opinion'
-					label='Description'
-					placeholder='Description'
-					name='taskDescription'
-					value={task.taskDescription || ''}
-					onChange={(event) => setTask({
-						...task,
-						taskDescription: event.target.value
-					})}/>
-				<Form.Group>
-					<Header as='h5'>Task status</Header>
-					<Form.Field>
-						<Radio
-							label='Defined'
-							name='radioGroup'
-							value='defined'
-							checked={task.status === 'defined'}
-							onChange={(event,{value}) => setTask({
-								...task,
-								status: value
-							})}/>
-					</Form.Field>
-					<Form.Field>
-						<Radio
-							label='In progress'
-							name='radioGroup'
-							value='inProgress'
-							checked={task.status === 'inProgress'}
-							onChange={(event,{value}) => setTask({
-								...task,
-								status: value
-							})}/>
-					</Form.Field>
-					<Form.Field>
-						<Radio
-							label='Completed'
-							name='radioGroup'
-							value='completed'
-							checked={task.status === 'completed'}
-							onChange={(event,{value}) => setTask({
-								...task,
-								status: value
-							})}/>
-					</Form.Field>
-					<Form.Field>
-						<Radio
-							label='Accepted'
-							name='radioGroup'
-							value='accepted'
-							checked={task.status === 'accepted'}
-							onChange={(event,{value}) => setTask({
-								...task,
-								status: value
-							})}/>
-					</Form.Field>
-					<Form.Field>
-						<Radio
-							label='Blocked'
-							name='radioGroup'
-							value='blocked'
-							checked={task.status === 'blocked'}
-							onChange={(event,{value}) => setTask({
-								...task,
-								status: value
-							})}/>
-					</Form.Field>
-				</Form.Group>
-				<Form.Field
+			<Typography as='h3'>Create new task</Typography>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Grid container spacing={3} justifyContent={'space-between'}>
+					<Grid item xs={5}>
+						<FormTextField
+							className={classes.firstLineInput}
+							control={control}
+							name={'taskName'}
+							id='form-input-control-task-name'
+							label='Task name'
+							placeholder='Please select a name'
+							variant="outlined"
+						/>
+					</Grid>
+					<Grid item xs={5}>
+						<FormTextField
+							control={control}
+							label={'Due date'}
+							name={'taskEndDate'}
+							type="date"
+							placeholder='Please select a doe date'
+							InputLabelProps={{
+								shrink: true,
+							}}
+							variant="outlined"
+						/>
+					</Grid>
+					<Grid item xs={12}>
+						<FormTextAreaField
+							control={control}
+							name={'taskDascripton'}
+							label="Description"
+							multiline
+							rows={4}
+							placeholder='Please select a description'
+							variant="outlined"
+						/>
+					</Grid>
+					<Grid item>
+						<RadioGroupField row options={StatusOptions} name="taskStatus"control={control} />
+					</Grid>
+				</Grid>
+				<Button
 					id='form-button-control-public'
-					control={Button}
-					content='Create'
-					type="submit"/>
-			</Form>
+					type="submit"
+					color="primary"
+					variant="contained"
+				>
+					{mode}
+				</Button>
+			</form>
 		</div>
 	)
 }
@@ -162,7 +122,6 @@ TaskDetails.propTypes = {
 	createNewTask: PropTypes.func,
 	updateExistingTask: PropTypes.func,
 	selectTask: PropTypes.func,
-	currentTask: PropTypes.object
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetails);
+export default TaskDetails;

@@ -39,9 +39,9 @@ const retrieveTasksList = () => {
 
 const createTask = (newTask) => {
 	const task = {
-		taskName: newTask.taskName,
+		taskName: newTask.name,
 		endOfDate: newTask.endOfDate,
-		description: newTask.taskDescription
+		description: newTask.description
 	}
 	setLoader(true);
 	serviceRequest(
@@ -58,7 +58,7 @@ const createTask = (newTask) => {
 			setLoader(false);
 		},
 		(err) => {
-			dispatch(setServerError(err));
+			setServerError(err);
 			setLoader(false);
 		}
 	);
@@ -67,9 +67,9 @@ const createTask = (newTask) => {
 const updateTask = (id,updateTask) => {
 	const task = {
 		taskName: updateTask.taskName,
-		endOfDate: updateTask.endOfDate,
-		description: updateTask.taskDescription,
-		status: updateTask.status
+		endOfDate: updateTask.taskEndDate,
+		description: updateTask.taskDascripton,
+		status: updateTask.taskStatus
 	}
 	const payload = {
 		id
@@ -88,13 +88,14 @@ const updateTask = (id,updateTask) => {
 			setLoader(false);
 		},
 		(err) => {
-			dispatch(setServerError(err));
+			setServerError(err);
 			setLoader(false);
 		}
 	);
 };
 
 const selectTask = id => {
+	setLoader(true);
 	serviceRequest(
 		'/api/tasks/' + id,
 		'get',
@@ -104,9 +105,11 @@ const selectTask = id => {
 				type: actions.SELECT_TASK,
 				payload: response.data.task
 			});
+			setLoader(false);
 		},
 		(err) => {
-			dispatch(setServerError(err));
+			setServerError(err);
+			setLoader(false);
 		}
 	);
 };
@@ -125,7 +128,7 @@ const removeTask = (id) => {
 			});
 		},
 		(err) => {
-			dispatch(setServerError(err));
+			setServerError(err);
 		}
 	);
 };
