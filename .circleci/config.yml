@@ -32,4 +32,4 @@ jobs:
             - client/node_modules
       - run:
           name: Bulid application
-          command: npm run build:prod
+          command: npm run build:client:prod
