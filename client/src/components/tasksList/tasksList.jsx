@@ -1,11 +1,10 @@
 import React from 'react'
 import {selectTask, getSelectedTask, getTasksList, createTask, updateTask, removeTask } from '../../store/tasks/actions';
 import { connect } from 'react-redux';
-import { List } from 'semantic-ui-react';
 import TaskItem from './taskItem/taskItem';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import LoaderSpin from '../loader/Loader';
+import { List } from '@material-ui/core';
 
 const mapStateToProps = (state) => {
 	return {
@@ -65,10 +64,8 @@ function TasksList(props) {
 		deleteTask(id);
 	}
 
-
 	return (
 		<List className="tasks-list" divided verticalAlign='middle'>
-			<LoaderSpin />
 			{showTasks()}
 		</List>
 	)

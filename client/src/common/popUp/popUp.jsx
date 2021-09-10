@@ -1,8 +1,10 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react'
-import { Modal, Button } from 'semantic-ui-react'
 import { useDispatch } from 'react-redux'
+import { PropTypes } from 'prop-types';
+import { Modal, Button } from '@material-ui/core';
 
-export default function popUp(props) {
+export function PopUp(props) {
 	const {size} = props;
 	const [popupState,setPopupState] = useState({
 		show: false,
@@ -21,13 +23,17 @@ export default function popUp(props) {
 				<p>Are you sure you want to delete your account</p>
 			</Modal.Content>
 			<Modal.Actions>
-				<Button negative onClick={() => setPopupState((prevState) => ({ show: prevState.show , isUpdated: true}))}>
+				<Button color="primary" onClick={() => setPopupState((prevState) => ({ show: prevState.show , isUpdated: true}))}>
             No
 				</Button>
-				<Button positive onClick={() => dispatch({ type: 'close' })}>
+				<Button color="secondary" onClick={() => dispatch({ type: 'close' })}>
             Yes
 				</Button>
 			</Modal.Actions>
 		</Modal>
 	)
+}
+
+PopUp.PropTypes = {
+	size: PropTypes.string,
 }

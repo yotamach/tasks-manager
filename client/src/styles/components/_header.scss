@@ -1,9 +1,11 @@
 .app-header{
     text-align: left;
     padding: 5px 15px;
-    background: $primary;
+    color: $white;
     .app-title{
-        color: $white;
-        padding: 15px 0;
+         padding: 15px 0;
+    }
+    .app-hamburger{
+        color: #fff;
     }
 }

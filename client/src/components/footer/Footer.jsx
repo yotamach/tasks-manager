@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Box } from '@material-ui/core';
 
-export default class AppFooter extends Component {
-	render() {
-		return (
-			<div className="app-footer">
-				<p>
-                 Yotam, Achrak © 2021
-				</p>
-			</div>
-		)
-	}
+export default function AppFooter() {
+
+	return (
+		<Box className="app-footer" bgcolor="primary.main" p={1} position='fixed'>
+			<span>Yotam, Achrak © 2021</span>
+		</Box>
+	);
 }

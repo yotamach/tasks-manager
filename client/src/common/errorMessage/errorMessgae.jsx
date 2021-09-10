@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function errorMessgae() {
+export default function ErrorMessgae() {
     
 	return (
 		<div>

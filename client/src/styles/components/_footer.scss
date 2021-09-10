@@ -1,9 +1,9 @@
 .app-footer{
     width: 100%;
     padding: 15px;
-    background: $primary;
     border: 1px solid #ccc;
-    p{
+    bottom: 0;
+    span{
         color: $white;
     }
 }

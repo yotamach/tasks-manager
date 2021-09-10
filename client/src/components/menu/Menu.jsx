@@ -1,46 +1,46 @@
-import React, { Component } from 'react'
-import { Menu } from 'semantic-ui-react'
-import {NavLink} from 'react-router-dom';
+import React from 'react'
+import { makeStyles, Box } from '@material-ui/core';
+import { NavLink } from 'react-router-dom';
 
-export default class AppMenu extends Component {
-	constructor() {
-		super();
-		this.state = { activeItem: 'home' };
+const useStyles = makeStyles(theme => ({
+	menuButton: {
+		marginRight: theme.spacing(4),
+		color: 'white',
+		textDecoration: 'none',
+	},
+	active: {
+		color: '#DEDEDE'
 	}
+}));
 
-	render() {
-		const { activeItem } = this.state;
-		return (
-			<div>
-				<Menu pointing className="app-menu">
-					<Menu.Menu position='left'>
-						<Menu.Item
-							as={NavLink} to="/tasks"
-							name='Shop'
-							active={activeItem === 'tasks'}
-							onClick={(e, { name }) => this.setState({ activeItem: name })}
-						>
-                            Tasks
-						</Menu.Item>
-						<Menu.Item
-							as={NavLink} to="/task/create"
-							name='Shop'
-							active={activeItem === 'task'}
-							onClick={this.handleItemClick}
-						>
-                            Task
-						</Menu.Item>
-					</Menu.Menu>
-					<Menu.Menu position='right'>
-						<Menu.Item
-							as={NavLink} to="/"
-							name='Home'
-						>
-                            Home
-						</Menu.Item>
-					</Menu.Menu>
-				</Menu>
-			</div>
-		)
-	}
+export default function AppMenu() {
+	const classes = useStyles();
+	return (
+		<Box m={2}>
+			<NavLink
+				activeClassName={classes.active}
+				className={classes.menuButton}
+				to="/"
+				exact={true}
+			>
+				Home
+			</NavLink>
+			<NavLink
+				activeClassName={classes.active}
+				className={classes.menuButton}
+				to="/tasks"
+				exact={true}
+			>
+				Tasks
+			</NavLink>
+			<NavLink
+				activeClassName={classes.active}
+				className={classes.menuButton}
+				to="/task/create"
+				exact={true}
+			>
+				New Tasks
+			</NavLink>
+		</Box>
+	)
 }

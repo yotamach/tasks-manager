@@ -1,13 +1,12 @@
 import React from 'react'
-import { Loader, Dimmer, Segment, Image } from 'semantic-ui-react'
+import Skeleton from '@material-ui/lab/Skeleton';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const LoaderSpin = () => {
-	return (<Segment>
-		<Dimmer active inverted>
-			<Loader>Loading</Loader>
-		</Dimmer>
-		<Image src='https://react.semantic-ui.com/images/wireframe/short-paragraph.png' />
-	</Segment>);
+	return (<>
+		<CircularProgress />
+		<Skeleton animation="wave" />
+	</>);
 }
 
 export default LoaderSpin;

@@ -1,20 +1,22 @@
 import React, {useEffect} from 'react'
 import { useSelector } from 'react-redux';
-import { Container } from 'semantic-ui-react'
 import LoaderSpin from '../loader/Loader';
 import { retrieveTasksList } from '../../store/tasks/actions';
 import PropTypes from 'prop-types';
+import { Alert } from '../alert/Alert';
+import { Box } from '@material-ui/core';
 
 function AppContainer(props) {
+	const {error} = useSelector(state => state.errors);
+	const {loader} = useSelector(state => state.loader)
 	useEffect(() => {
 		retrieveTasksList();
-	},[]);
+	},[]);	
 
-	const {loader} = useSelector(state => state.loader)
-	
-	return (<Container className="app-container">
+	return (<Box className="app-container">
+		{!!error && <Alert />}
 		{loader ? <LoaderSpin /> : props.children}
-	</Container>);
+	</Box>);
 }
 
 AppContainer.propTypes = {
