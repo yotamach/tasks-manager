@@ -65,7 +65,7 @@ function TasksList(props) {
 	}
 
 	return (
-		<List className="tasks-list" divided verticalAlign='middle'>
+		<List className="tasks-list">
 			{showTasks()}
 		</List>
 	)

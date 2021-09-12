@@ -8,6 +8,7 @@ import { makeStyles, Typography, Grid, Button } from '@material-ui/core';
 import { FormTextField, FormTextAreaField, RadioGroupField } from 'common/form/FormFields';
 import moment from 'moment';
 import { StatusOptions } from 'constans/task.consts';
+import { FormDateField } from '../../common/form/FormFields';
 
 const useStyles = makeStyles({
 	row: {
@@ -26,7 +27,7 @@ function TaskDetails() {
 		defaultValues: {
 			taskName: "",
 			taskDascripton: "",
-			taskEndDate: "",
+			taskEndDate: moment(new Date()),
 			taskStatus: "defined",
 		}
 	});
@@ -39,7 +40,7 @@ function TaskDetails() {
 				selectTask(id);
 			reset({
 				taskName: selectedTask.taskName,
-				taskEndDate: moment(selectedTask.endOfDate).format('yyyy-MM-DD'),
+				taskEndDate: moment(selectedTask.endOfDate),
 				taskDascripton: selectedTask.description,
 				taskStatus: selectedTask.status,
 			});
@@ -66,7 +67,7 @@ function TaskDetails() {
 			<Typography as='h3'>Create new task</Typography>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Grid container spacing={3} justifyContent={'space-between'}>
-					<Grid item xs={5}>
+					<Grid item xs={6}>
 						<FormTextField
 							className={classes.firstLineInput}
 							control={control}
@@ -77,8 +78,8 @@ function TaskDetails() {
 							variant="outlined"
 						/>
 					</Grid>
-					<Grid item xs={5}>
-						<FormTextField
+					<Grid item xs={6}>
+						<FormDateField
 							control={control}
 							label={'Due date'}
 							name={'taskEndDate'}
