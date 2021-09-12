@@ -2,16 +2,20 @@ import React from "react";
 import { Controller } from 'react-hook-form';
 import { PropTypes } from 'prop-types';
 import { TextField, Radio, RadioGroup, FormControl, FormControlLabel } from '@material-ui/core';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import MomentUtils from "@date-io/moment";
+import moment from "moment";
 
 export function FormTextField({name, control, defaultValue = '', rules = {}, label, type = 'text'}) {
 	return (<Controller
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value }, fieldState: { error } }) => (
+		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
 			<TextField
 				label={label}
-				variant="filled"
+				defaultValue={defaultValue}
+				variant="standard"
 				value={value}
 				onChange={onChange}
 				error={!!error}
@@ -34,15 +38,52 @@ FormTextField.propTypes = {
 	type: PropTypes.string
 }
 
+export function FormDateField({name, control, defaultValue = '', rules = {}, label}) {
+	return (<Controller
+		name={name}
+		control={control}
+		defaultValue={defaultValue}
+		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
+			<MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
+				<KeyboardDatePicker
+					disableToolbar
+					variant="standard"
+					format="yyyy-MM-DD"
+					label={label}
+					value={value}
+					onChange={onChange}
+					defaultValue={defaultValue}
+					error={error}
+					KeyboardButtonProps={{
+						'aria-label': 'Change date',
+					}}
+					fullWidth
+				/>
+			</MuiPickersUtilsProvider>
+		)}
+		rules={rules}
+	/>
+	);
+}
+
+FormDateField.propTypes = {
+	control: PropTypes.object,
+	rules: PropTypes.object,
+	label: PropTypes.string,
+	defaultValue: PropTypes.string,
+	name: PropTypes.string
+}
+
 export function FormTextAreaField({name, control, defaultValue = '', rules = {}, label, type = 'text', rows = 3}) {
 	return (<Controller
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value }, fieldState: { error } }) => (
+		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
 			<TextField
 				label={label}
-				variant="filled"
+				variant="standard"
+				defaultValue={defaultValue}
 				value={value}
 				multiline
 				rows={rows}

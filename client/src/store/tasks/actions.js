@@ -28,7 +28,9 @@ const retrieveTasksList = () => {
 				type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
 				payload: tasksList
 			});
-			setLoader(false);
+			setTimeout(() => {
+				setLoader(false);				
+			}, 3000);		
 		},
 		(err) => {
 			setServerError(err);
