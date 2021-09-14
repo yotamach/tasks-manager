@@ -1,12 +1,18 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const taskSchema = mongoose.Schema({
-	taskName: {
+	name: {
 		type: String,
 		maxlength: 50,
 		required: [true, 'Task name is missing']
 	},
-	endOfDate: {
+	startDate: {
+		type: Date,
+		minglength: 5,
+		default: new Date()
+	},
+	endDate: {
 		type: Date,
 		minglength: 5,
 		required: [true, 'End of date is missing']
@@ -15,10 +21,21 @@ const taskSchema = mongoose.Schema({
 		type: String,
 		minglength: 5
 	},
+	category: {
+		type: Schema.Types.ObjectId,
+		ref: 'Category'
+	},
 	status: {
 		type: String,
 		enum: ['defined', 'in progress', 'completed', 'accepted'],
-		maxlength: 50
+		maxlength: 50,
+		default: 'defined'
+	},
+	priority: {
+		type: String,
+		enum: ['low', 'medium', 'high', 'critical'],
+		maxlength: 50,
+		default: 'medium'
 	},
 	creationTime: {
 		type: Date,

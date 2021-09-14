@@ -1,19 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const {
-	Task
-} = require("../models/Task");
+	Category
+} = require("../models/Category");
 
 // const {
 // 	auth
 // } = require("../middleware/auth");
 
 //=================================
-//             Task
+//             Category
 //=================================
 
 router.get("/", (req, res) => {
-	Task.find({}, null, (err, tasks) => {
+	Category.find({}, null, (err, categories) => {
 		if (err) {
 			return res.status(500).json({
 				success: false,
@@ -22,46 +22,46 @@ router.get("/", (req, res) => {
 		}
 		return res.status(200).json({
 			success: true,
-			tasks
+			categories
 		})
 	});
 });
 
-router.post("/createTask", (req, res) => {
+router.post("/", (req, res) => {
 	const task = new Task({
 		...req.body,
 		creationTime: new Date()
 	});
-	task.save((err, task) => {
+	task.save((err, category) => {
 		if (err) return res.status(500).json({
 			success: false,
 			error: err
 		});
 		return res.status(200).json({
 			success: true,
-			task
+			category
 		});
 	});
 });
 
 router.get("/:id", (req, res) => {
-	Task.findOne({
+	Category.findOne({
 		_id: req.params.id
-	}, (err, task) => {
+	}, (err, category) => {
 		if (err)
 			return res.status(500).json({
 				success: false,
 				error: err.message
 			});
 		else {
-			if (!task)
+			if (!category)
 				return res.status(404).json({ 
 					success: false,
-					error: "Task not found",
+					error: "Category not found",
 				 });
 			return res.status(200).json({
 				success: true,
-				task
+				category
 			});
 		}
 	});
@@ -80,8 +80,8 @@ router.put("/:id", (req, res) => {
 			if (!task)
 				return res.status(404).json({
 					success: false,
-					error: "No task found to update",
-				});
+					error: "No category found to update",
+				})
 			return res.status(200).json({
 				success: true,
 				task
@@ -91,9 +91,9 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-	Task.findByIdAndDelete({
+	Category.findByIdAndDelete({
 		_id: req.params.id
-	}, (err, task) => {
+	}, (err, category) => {
 		if (err)
 			return res.status(500).json({
 				success: false,
@@ -103,11 +103,11 @@ router.delete("/:id", (req, res) => {
 			if (!task)
 				return res.status(404).json({
 					success: false,
-					error: "Task doesn't exist"
+					error: "Category doesn't exist"
 				});
 			return res.status(200).json({
 				success: true,
-				task
+				category
 			});
 		}
 	});

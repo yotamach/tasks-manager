@@ -12,20 +12,8 @@
 
 .tasks-list{
 
-    .task-item-row{
-        align-items: center;
-    }
-
-    >.task-list-item{
-        .list-item{
-            .ui.buttons{
-                margin-top: 0px;
-                >.button{ 
-                    margin: 0px 5px;
-                }
-            } 
-        }
-        padding: 2px 5px;
+    .task-item{
+        border-bottom: 1px solid #ececec;
     }
 }
 
