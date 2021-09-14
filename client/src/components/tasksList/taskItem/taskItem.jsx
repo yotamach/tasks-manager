@@ -14,7 +14,7 @@ export default function TaskItem(props) {
 
 	return (
 		<Fragment>
-			<Grid container justifyContent="space-between" alignItems="center">
+			<Grid className="task-item" container justifyContent="space-between" alignItems="center">
 				<Grid item xs={6}>
 					<div className="task-title">{task.taskName}</div>
 				</Grid>

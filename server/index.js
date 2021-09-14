@@ -30,6 +30,7 @@ app.use(cookieParser());
 
 app.use('/api/users', require('./routes/users'));
 app.use('/api/tasks', require('./routes/tasks'));
+app.use('/api/categories', require('./routes/categories'));
 
 app.get('*', function (req, res) {
 	res.status(301).json({ error: "REST server isnt exist" });

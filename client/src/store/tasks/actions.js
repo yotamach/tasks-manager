@@ -28,9 +28,7 @@ const retrieveTasksList = () => {
 				type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
 				payload: tasksList
 			});
-			setTimeout(() => {
-				setLoader(false);				
-			}, 3000);		
+			setLoader(false);					
 		},
 		(err) => {
 			setServerError(err);
@@ -41,7 +39,7 @@ const retrieveTasksList = () => {
 
 const createTask = (newTask) => {
 	const task = {
-		taskName: newTask.name,
+		name: newTask.name,
 		endOfDate: newTask.endOfDate,
 		description: newTask.description
 	}
@@ -68,7 +66,7 @@ const createTask = (newTask) => {
 
 const updateTask = (id,updateTask) => {
 	const task = {
-		taskName: updateTask.taskName,
+		name: updateTask.taskName,
 		endOfDate: updateTask.taskEndDate,
 		description: updateTask.taskDascripton,
 		status: updateTask.taskStatus
