@@ -27,6 +27,7 @@
         "react/jsx-uses-vars": "error",
         "no-unused-vars": "warn",
         "no-eval": "warn",
-        "import/first": "error"
+        "import/first": "error",
+        "react/prop-types": "warn"
     }
 }
