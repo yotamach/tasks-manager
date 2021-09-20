@@ -20,7 +20,7 @@
     },
     "rules": {
         "indent": [
-            "error",
+            "warn",
             "tab"
         ],
         "react/jsx-uses-react": "error",

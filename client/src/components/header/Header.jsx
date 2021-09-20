@@ -8,12 +8,12 @@ export default class AppHeader extends Component {
 	render() {
 		const {title} = this.props;
 		return (
-			<AppBar>
+			<AppBar position="static">
 				<Toolbar variant="dense">
 					<IconButton edge="start" aria-label="menu">
 						<MenuIcon color="secondary" />
 					</IconButton>
-					<Typography variant="h6" color="secondary">
+					<Typography variant="h6" color="secondary" className="app-title">
 						{title}
 					</Typography>
 					<AppMenu />

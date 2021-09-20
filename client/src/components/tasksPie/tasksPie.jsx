@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { handleStatusLabel, handleStatusLabelColor } from '../../utils/Utils';
 
 export const TasksPie = () => {
+
 	const tasks = useSelector(state => state.tasks.tasks);
 	var countData = _.countBy(tasks, obj => obj.status);
 
@@ -20,7 +21,7 @@ export const TasksPie = () => {
 			type: 'pie'
 		},
 		title: {
-			text: 'Tasks by status'
+			text: undefined
 		},
 		tooltip: {
 			pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'

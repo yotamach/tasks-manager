@@ -5,6 +5,7 @@ import { retrieveTasksList } from '../../store/tasks/actions';
 import PropTypes from 'prop-types';
 import { Alert } from '../alert/Alert';
 import { Box } from '@material-ui/core';
+import ErrorBoundary from 'components/errorBoundary/ErrorBoundary';
 
 function AppContainer(props) {
 	const {error} = useSelector(state => state.errors);
@@ -14,7 +15,9 @@ function AppContainer(props) {
 
 	return (<Box className="app-container">
 		{!!error && <Alert />}
-		{props.children}
+		<ErrorBoundary>
+			{props.children}
+		</ErrorBoundary>
 		<LoaderSpin />
 	</Box>);
 }

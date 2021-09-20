@@ -21,7 +21,6 @@ const useStyles = makeStyles({
 
 function TaskDetails() {
 	const classes = useStyles();
-
 	const {selectedTask} = useSelector(state => state.tasks);
 	const { handleSubmit, formState, control, reset } = useForm({
 		defaultValues: {
@@ -84,7 +83,7 @@ function TaskDetails() {
 							label={'Due date'}
 							name={'taskEndDate'}
 							type="date"
-							placeholder='Please select a doe date'
+							placeholder='Please select a due date'
 							InputLabelProps={{
 								shrink: true,
 							}}
