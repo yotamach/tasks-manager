@@ -1,5 +1,5 @@
 import React from 'react'
-import { makeStyles, Box } from '@material-ui/core';
+import { makeStyles, Box, Grid } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
@@ -16,31 +16,49 @@ const useStyles = makeStyles(theme => ({
 export default function AppMenu() {
 	const classes = useStyles();
 	return (
-		<Box m={2}>
-			<NavLink
-				activeClassName={classes.active}
-				className={classes.menuButton}
-				to="/"
-				exact={true}
-			>
+		<Box m={2} width={'100%'}>
+			<Grid container justifyContent="space-between" width={"80%"}>
+				<Grid item xs={6}>
+					<NavLink
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						to="/"
+						exact={true}
+					>
 				Home
-			</NavLink>
-			<NavLink
-				activeClassName={classes.active}
-				className={classes.menuButton}
-				to="/tasks"
-				exact={true}
-			>
+					</NavLink>
+					<NavLink
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						to="/tasks"
+						exact={true}
+					>
 				Tasks
-			</NavLink>
-			<NavLink
-				activeClassName={classes.active}
-				className={classes.menuButton}
-				to="/task/create"
-				exact={true}
-			>
-				New Tasks
-			</NavLink>
+					</NavLink>
+					<NavLink
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						to="/task/create"
+						exact={true}
+					>
+				New Task
+					</NavLink>
+				</Grid>
+				<Grid 
+					item
+					xs={6}
+				>
+					<NavLink
+						style={{ float: 'right' }}
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						to="/signup"
+						exact={true}
+					>
+				Sign up
+					</NavLink>
+				</Grid>
+			</Grid>
 		</Box>
 	)
 }
