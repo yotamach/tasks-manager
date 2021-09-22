@@ -19,7 +19,7 @@ export default function Signup() {
 				</Typography>
 				<form onSubmit={handleSubmit(onSubmit)}>
 					<Grid container spacing={3} justifyContent={'space-between'}>
-						<Grid item xs={4} spacing={1}>
+						<Grid item xs={4}>
 							<FormTextField
 								control={control}
 								name={'firstName'}
@@ -86,7 +86,7 @@ export default function Signup() {
 								className="signup-back-button"
 								id='form-button-control-public'
 								type="submit"
-								color="secondasry"
+								color="secondary"
 								variant="contained"
 							>
 					Back

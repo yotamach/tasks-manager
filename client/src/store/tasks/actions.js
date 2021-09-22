@@ -1,10 +1,10 @@
 import {actions} from './actionTypes';
 import {getTasksListSelector, getSelectedTaskSelector} from './selectors';
 import store from '../index';
-import serviceRequest from './../serviceRequest';
 import {setServerError} from './../errors/actions';
 import moment from 'moment';
 import { setLoader } from '../loader/actions';
+import { deleteTask, getTasks, postTask, putTask, getTask } from '../services/tasks.service';
 
 //const state = store.getState().tasks;
 const {dispatch} = store;
@@ -16,55 +16,44 @@ const getSelectedTask = (state) => {
 	return getSelectedTaskSelector(state.tasks);
 }
 
-const retrieveTasksList = () => {
-	setLoader(true);
-	serviceRequest(
-		'/api/tasks',
-		'get',
-		null,
-		(response) => {
-			const tasksList = response.data.tasks.map(item => ({...item, endOfDate: moment(item.endOfDate).format("YYYY-MM-DD h:mm A")}));
-			dispatch({
-				type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
-				payload: tasksList
-			});
-			setLoader(false);					
-		},
-		(err) => {
-			setServerError(err);
-			setLoader(false);
-		}
-	);
+const retrieveTasksList = async () => {
+	try{
+		setLoader(true);
+		const resopnse = await getTasks();
+		const tasksList = resopnse.data.tasks.map(item => ({...item, endOfDate: moment(item.endOfDate).format("YYYY-MM-DD h:mm A")}));
+		dispatch({
+			type: `${actions.RETRIEVE_TASKS}_SUCCESS`,
+			payload: tasksList
+		});
+		setLoader(false);					
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
 }
 
-const createTask = (newTask) => {
+const createTask = async (newTask) => {
 	const task = {
 		name: newTask.name,
 		endOfDate: newTask.endOfDate,
 		description: newTask.description
 	}
-	setLoader(true);
-	serviceRequest(
-		'/api/tasks/createTask',
-		'post',
-		task,
-		(response) => {
-			dispatch({
-				type: `${actions.CREATE_TASK}_SUCCESS`,
-				payload: {
-					task: response.data.task
-				}
-			});
-			setLoader(false);
-		},
-		(err) => {
-			setServerError(err);
-			setLoader(false);
-		}
-	);
+	try{
+		setLoader(true);
+		const response = await postTask(task);
+		dispatch({
+			type: `${actions.CREATE_TASK}_SUCCESS`,
+			payload: {
+				task: response.data.task
+			}
+		});
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
 };
 
-const updateTask = (id,updateTask) => {
+const updateTask = async (id,updateTask) => {
 	const task = {
 		name: updateTask.taskName,
 		endOfDate: updateTask.taskEndDate,
@@ -74,63 +63,51 @@ const updateTask = (id,updateTask) => {
 	const payload = {
 		id
 	};
-	setLoader(true);
-	serviceRequest(
-		'/api/tasks/' + id,
-		'put',
-		task,
-		(response) => {
-			payload.task = response.data.task;
-			dispatch({
-				type: `${actions.UPDATE_TASK}_SUCCESS`,
-				payload
-			});
-			setLoader(false);
-		},
-		(err) => {
-			setServerError(err);
-			setLoader(false);
-		}
-	);
+	try{
+		setLoader(true);
+		const response = await putTask(id, task);
+		payload.task = response.data.task;
+		dispatch({
+			type: `${actions.UPDATE_TASK}_SUCCESS`,
+			payload
+		});
+		setLoader(false);
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
 };
 
-const selectTask = id => {
-	setLoader(true);
-	serviceRequest(
-		'/api/tasks/' + id,
-		'get',
-		null,
-		(response) => {
-			dispatch({
-				type: actions.SELECT_TASK,
-				payload: response.data.task
-			});
-			setLoader(false);
-		},
-		(err) => {
-			setServerError(err);
-			setLoader(false);
-		}
-	);
-};
+const selectTask = async id => {
+	try{
+		setLoader(true);
+		const response = await getTask(id);
+		dispatch({
+			type: actions.SELECT_TASK,
+			payload: response.data.task
+		});
+		setLoader(false);
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
+}
 
 
 
-const removeTask = (id) => {
-	serviceRequest(
-		'/api/tasks/' + id,
-		'delete',
-		null,
-		() => {
-			dispatch({
-				type: `${actions.DELETE_TASK}_SUCCESS`,
-				payload: {id}
-			});
-		},
-		(err) => {
-			setServerError(err);
-		}
-	);
+const removeTask = async (id) => {
+	try{
+		setLoader(true);
+		await deleteTask(id);
+		dispatch({
+			type: `${actions.DELETE_TASK}_SUCCESS`,
+			payload: {id}
+		});
+		setLoader(false);
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
 };
 
 export {

@@ -1,6 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose} from "redux";
 import thunkMiddleware from 'redux-thunk';
-import userReducer from './user/index';
+import userReducer from './users/index';
 import tasksReducer from './tasks/index';
 import errorsReducer from './errors/index';
 import loaderReducer from "./loader";

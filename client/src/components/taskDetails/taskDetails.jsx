@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {createTask, selectTask, updateTask} from '../../store/tasks/actions';
+import {createTask, selectTask, updateTask} from 'store/tasks/actions';
 import {useHistory, useParams} from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";

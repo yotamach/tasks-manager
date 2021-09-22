@@ -11,7 +11,7 @@ export function FormTextField({name, control, defaultValue = '', rules = {}, lab
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
+		render={({ field: { onChange, value = '', defaultValue }, fieldState: { error } }) => (
 			<TextField
 				label={label}
 				defaultValue={defaultValue}
@@ -43,7 +43,7 @@ export function FormDateField({name, control, defaultValue = '', rules = {}, lab
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
+		render={({ field: { onChange, value = new Date(), defaultValue }, fieldState: { error } }) => (
 			<MuiPickersUtilsProvider libInstance={moment} utils={MomentUtils}>
 				<KeyboardDatePicker
 					disableToolbar
@@ -79,7 +79,7 @@ export function FormTextAreaField({name, control, defaultValue = '', rules = {},
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value, defaultValue }, fieldState: { error } }) => (
+		render={({ field: { onChange, value = '', defaultValue }, fieldState: { error } }) => (
 			<TextField
 				label={label}
 				variant="standard"
@@ -115,7 +115,7 @@ export function RadioGroupField({row = true, options = [], name, control, defaul
 		name={name}
 		control={control}
 		defaultValue={defaultValue}
-		render={({ field: { onChange, value }, fieldState: { error } }) => (
+		render={({ field: { onChange, value = '' }, fieldState: { error } }) => (
 			<FormControl component="fieldset">
 				<RadioGroup row={row} defaultValue={defaultValue} value={value} onChange={onChange} error={error}>
 					{options.map(({label, value}, index) => <FormControlLabel
