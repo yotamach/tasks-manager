@@ -11,7 +11,7 @@ export function getTask(id) {
 }
 
 export function postTask(data) {
-	return serviceRequest(`${ApiUrls.tasks}/createTask`,'post',data);
+	return serviceRequest(`${ApiUrls.tasks}/`,'post',data);
 }
 export function putTask(id, data) {
 	return serviceRequest(`${ApiUrls.tasks}/${id}`,'put',data);

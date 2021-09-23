@@ -1,23 +1,21 @@
 import {actions} from './actionTypes';
 
 let initialState = {
-	board: [
-		[-1,-1,-1],
-		[-1,-1,-1],
-		[-1,-1,-1]
-	],
-	currentUser: 1,
-	winner: false
+	status: null,
+	message: null,
+	details: {}
 };
 
 function userReducer(state = initialState, action) {
 	switch (action.type) {
-	case actions.CHANGE_BOARD:
-	case actions.CHANGE_USER:
-	case actions.WINNER:
+	case actions.REGISTER_USER:
 		state = {...state, ...action.payload};
 		return state;
-	case actions.RESET:
+	case actions.LOGIN_USER:
+	case actions.UPDATE_USER_DETAILS:
+		state = {...state, ...action.payload};
+		return state;
+	case actions.LOGOUT_USER:
 		state = {...initialState};
 		return state;
 	default:

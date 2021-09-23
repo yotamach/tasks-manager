@@ -1,4 +1,5 @@
 const express = require('express');
+const { ErrorResponse, NotFoundResponse } = require('../constans');
 const router = express.Router();
 const {
 	Task
@@ -16,7 +17,7 @@ router.get("/", (req, res) => {
 	Task.find({}, null, (err, tasks) => {
 		if (err) {
 			return res.status(500).json({
-				success: false,
+				...ErrorResponse,
 				error: err
 			})
 		}
@@ -27,16 +28,13 @@ router.get("/", (req, res) => {
 	});
 });
 
-router.post("/createTask", (req, res) => {
+router.post("/", (req, res) => {
 	const task = new Task({
 		...req.body,
 		creationTime: new Date()
 	});
 	task.save((err, task) => {
-		if (err) return res.status(500).json({
-			success: false,
-			error: err
-		});
+		if (err) return res.status(500).json(ErrorResponse(err));
 		return res.status(200).json({
 			success: true,
 			task
@@ -49,16 +47,10 @@ router.get("/:id", (req, res) => {
 		_id: req.params.id
 	}, (err, task) => {
 		if (err)
-			return res.status(500).json({
-				success: false,
-				error: err.message
-			});
+			return res.status(500).json(ErrorResponse(err));
 		else {
 			if (!task)
-				return res.status(404).json({ 
-					success: false,
-					error: "Task not found",
-				 });
+				return res.status(404).json(NotFoundResponse('Task'));
 			return res.status(200).json({
 				success: true,
 				task
