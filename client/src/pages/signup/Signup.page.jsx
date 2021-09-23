@@ -5,7 +5,7 @@ import { FormTextField, FormDateField } from 'common/form/FormFields';
 import { Box } from '@material-ui/core';
 
 export default function Signup() {
-	const { handleSubmit, formState, control } = useForm();
+	const { handleSubmit, control } = useForm();
 
 	const onSubmit = (data) => {
 		console.log(data);
