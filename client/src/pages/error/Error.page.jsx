@@ -8,7 +8,8 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-export default function ErrorPage({ errorInfo }) {
+function ErrorPage(props) {
+	const { errorInfo } = props;
 	return (
 		<div>
 			<Accordion>
@@ -32,6 +33,8 @@ export default function ErrorPage({ errorInfo }) {
 	)
 }
 
-ErrorPage.PropTypes = {
-	errorInfo: PropTypes.any
+ErrorPage.propTypes = {
+	errorInfo: PropTypes.object
 }
+
+export default ErrorPage;
