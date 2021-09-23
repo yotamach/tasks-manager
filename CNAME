@@ -1,8 +1,0 @@
-4,9,14,19,24,29,34,39,44,49,54,59 * * * * cd /home/greentops ; /usr/bin/python /home/greentops/EgaugeSampling.py
-*/5 * * * * cd /var/www/html; /usr/bin/php /var/www/html/UpdateXML.php
-06 * * * * cd /home/greentops ; /usr/bin/python /home/greentops/SamplingByHour.py
-1,6,11,16,21,26,31,36,41,46,51,56 * * * * cd /home/greentops ; /usr/bin/python /home/greentops/E_gaugesSamplingBy5Min.py ; /usr/bin/python /home/greentops/EasyIOSamplingBy5Min.py ; /usr/bin/python /home/greentops/EasyIO2SamplingBy5Min.py
-1 * * * * cd /home/greentops ; /usr/bin/python /home/greentops/EasyIOSamplingByHour.py ; /usr/bin/python /home/greentops/EasyIO2SamplingByHour.py
-5 1 * * * cd /home/greentops ; /usr/bin/python /home/greentops/FixSampling.py
-*/5 * * * * cd /home/greentops ; /usr/bin/python /home/greentops/ReadRegisters.py ; /usr/bin/python /home/greentops/ReadRegistersCPU.py ; /usr/bin/python /home/greentops/ReadRegistersFC.py ; /usr/bin/python /home/greentops/ReadRegisters$
-#
