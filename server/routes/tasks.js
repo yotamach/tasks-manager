@@ -1,5 +1,6 @@
 const express = require('express');
 const { ErrorResponse, NotFoundResponse } = require('../constans');
+const logger = require('../logger');
 const router = express.Router();
 const {
 	Task
@@ -34,7 +35,10 @@ router.post("/", (req, res) => {
 		creationTime: new Date()
 	});
 	task.save((err, task) => {
-		if (err) return res.status(500).json(ErrorResponse(err));
+		if (err) { 
+			return res.status(400).json(ErrorResponse(err)); 
+		}
+		logger.error(200,task);
 		return res.status(200).json({
 			success: true,
 			task
