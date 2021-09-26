@@ -5,7 +5,7 @@
         "jest": true,
         "es6": true
     },
-    "plugins": ["import","file-progress"],
+    "plugins": ["file-progress"],
     "extends": [
         "eslint:recommended"
     ],
