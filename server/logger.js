@@ -42,18 +42,18 @@ const pinoHttp = require("pino-http")({
 		}
 	},
 	customLogLevel: (res) => {
-		let lebel = "info";
+		let level = "info";
 		switch (true) {
 		case (500 <= res.statusCode && res.statusCode < 599):
-			lebel = "error";
+			level = "error";
 			break;
 		case (400 <= res.statusCode && res.statusCode < 499):
-			lebel = "warn";
+			level = "warn";
 			break;
 		default:
-			lebel = "info";
+			level = "info";
 		}
-		return lebel;
+		return level;
 	}
 });
 // export the logger
