@@ -54,6 +54,7 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Install eslint
         run: npm install -g eslint
+      - name: Install eslint plugin
         run: npm install eslint-plugin-import@latest --save-dev
       # Runs a set of commands using the runners shell
       - name: Run eslint
