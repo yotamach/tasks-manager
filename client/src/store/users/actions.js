@@ -1,5 +1,4 @@
 import {actions} from './actionTypes';
-import {getBoardSelector, getUserSelector, getWinnerSelector} from './selectors';
 import store from '../index';
 import { registerUser } from 'store/services/users.service';
 import { setLoader } from '../loader/actions';

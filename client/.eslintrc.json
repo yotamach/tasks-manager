@@ -5,7 +5,7 @@
         "jest": true,
         "es6": true
     },
-    "plugins": ["import"],
+    "plugins": ["import","file-progress"],
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended"
@@ -19,6 +19,7 @@
       "exampleGlobalVariable": true
     },
     "rules": {
+        "file-progress/activate": 1,
         "indent": [
             "warn",
             "tab"
