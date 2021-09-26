@@ -1,6 +1,6 @@
-const express = require('express');
-const { ErrorResponse, NotFoundResponse } = require('../constans');
-const logger = require('../logger');
+const express = require("express");
+const { ErrorResponse, NotFoundResponse } = require("../constans");
+const logger = require("../logger");
 const router = express.Router();
 const {
 	Task
@@ -20,12 +20,12 @@ router.get("/", (req, res) => {
 			return res.status(500).json({
 				...ErrorResponse,
 				error: err
-			})
+			});
 		}
 		return res.status(200).json({
 			success: true,
 			tasks
-		})
+		});
 	});
 });
 
@@ -54,7 +54,7 @@ router.get("/:id", (req, res) => {
 			return res.status(500).json(ErrorResponse(err));
 		else {
 			if (!task)
-				return res.status(404).json(NotFoundResponse('Task'));
+				return res.status(404).json(NotFoundResponse("Task"));
 			return res.status(200).json({
 				success: true,
 				task

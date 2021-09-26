@@ -1,4 +1,4 @@
-const pino = require('pino');
+const pino = require("pino");
 // log levels system
 const levels = {
 	http: 10,
@@ -20,17 +20,17 @@ const logger = pino({
 	prettyPrint: {
 		colorize: true,
 		levelFirst: true,
-		translateTime: 'yyyy-mm-dd HH:MM:ss',
+		translateTime: "yyyy-mm-dd HH:MM:ss",
 	},
 });
 
-const pinoHttp = require('pino-http')({
+const pinoHttp = require("pino-http")({
 	logger,
 	customAttributeKeys: {
-		req: 'request',
-		res: 'response',
-		err: 'error',
-		responseTime: 'timeTaken'
+		req: "request",
+		res: "response",
+		err: "error",
+		responseTime: "timeTaken"
 	},
 	serializers: {
 		req(req) {
@@ -42,16 +42,16 @@ const pinoHttp = require('pino-http')({
 		}
 	},
 	customLogLevel: (res) => {
-		let lebel = 'info';
+		let lebel = "info";
 		switch (true) {
 		case (500 <= res.statusCode && res.statusCode < 599):
-			lebel = 'error';
+			lebel = "error";
 			break;
 		case (400 <= res.statusCode && res.statusCode < 499):
-			lebel = 'warn';
+			lebel = "warn";
 			break;
 		default:
-			lebel = 'info';
+			lebel = "info";
 		}
 		return lebel;
 	}

@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const taskSchema = mongoose.Schema({
 	name: {
 		type: String,
 		maxlength: 50,
-		required: [true, 'Task name is missing']
+		required: [true, "Task name is missing"]
 	},
 	startDate: {
 		type: Date,
@@ -15,7 +15,7 @@ const taskSchema = mongoose.Schema({
 	endDate: {
 		type: Date,
 		minglength: 5,
-		required: [true, 'End of date is missing']
+		required: [true, "End of date is missing"]
 	},
 	description: {
 		type: String,
@@ -23,29 +23,29 @@ const taskSchema = mongoose.Schema({
 	},
 	category: {
 		type: Schema.Types.ObjectId,
-		ref: 'Category'
+		ref: "Category"
 	},
 	status: {
 		type: String,
-		enum: ['defined', 'in progress', 'completed', 'accepted'],
+		enum: ["defined", "in progress", "completed", "accepted"],
 		maxlength: 50,
-		default: 'defined'
+		default: "defined"
 	},
 	priority: {
 		type: String,
-		enum: ['low', 'medium', 'high', 'critical'],
+		enum: ["low", "medium", "high", "critical"],
 		maxlength: 50,
-		default: 'medium'
+		default: "medium"
 	},
 	creationTime: {
 		type: Date,
 		minglength: 5
 	},
-})
+});
 
 
-const Task = mongoose.model('Task', taskSchema);
+const Task = mongoose.model("Task", taskSchema);
 
 module.exports = {
 	Task
-}
+};

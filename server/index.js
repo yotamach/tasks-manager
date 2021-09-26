@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const cors = require('cors')
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
@@ -11,10 +11,10 @@ mongoose.connect(`mongodb+srv://${config.userName}:${config.password}@${config.m
 	{
 		useNewUrlParser: true, useUnifiedTopology: true
 	})
-	.then(() => logger.info('MongoDB Connected...'))
+	.then(() => logger.info("MongoDB Connected..."))
 	.catch(err => logger.error(err));
 
-app.use(cors())
+app.use(cors());
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
@@ -25,19 +25,19 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(pinoHttp);
 
-app.use('/api/users', require('./routes/users'));
-app.use('/api/tasks', require('./routes/tasks'));
-app.use('/api/categories', require('./routes/categories'));
+app.use("/api/users", require("./routes/users"));
+app.use("/api/tasks", require("./routes/tasks"));
+app.use("/api/categories", require("./routes/categories"));
 
-app.get('*', function (req, res) {
+app.get("*", function (req, res) {
 	res.status(301).json({ error: "REST server isnt exist" });
 });
 //use this to show the image you have in node js server to client (react js)
 //https://stackoverflow.com/questions/48914987/send-image-path-from-node-js-express-server-to-react-client
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => {
-	logger.info('Server running on port %d', port);
+	logger.info("Server running on port %d", port);
 });

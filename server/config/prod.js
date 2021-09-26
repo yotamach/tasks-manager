@@ -3,5 +3,5 @@ module.exports = {
 	DBname: process.env.MONGO_DB,
 	userName: process.env.MONGO_USERNAME,
 	password: process.env.MONGO_PASSWORD,
-}
+};
 

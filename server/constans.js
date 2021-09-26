@@ -2,11 +2,11 @@ function ErrorResponse(err) {
 	return {
 		success: false,
 		error: {
-			message: err.message || 'Internal server error',
+			message: err.message || "Internal server error",
 			status: err.status || 500,
-			name: err.name || 'InternalServerError'
+			name: err.name || "InternalServerError"
 		}
-	}
+	};
 }
 
 function NotFoundResponse(data) {
@@ -15,9 +15,9 @@ function NotFoundResponse(data) {
 		error: {
 			message: `${data} not found`,
 			status: 404,
-			name: 'NotFound'
+			name: "NotFound"
 		}
-	}
+	};
 }
 
 module.exports = {
