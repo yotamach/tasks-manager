@@ -2,19 +2,15 @@ const express = require("express");
 const { ErrorResponse, NotFoundResponse } = require("../constans");
 const logger = require("../logger");
 const router = express.Router();
-const {
-	Task
-} = require("../models/Task");
+const {Task} = require("../models/Task");
 
-// const {
-// 	auth
-// } = require("../middleware/auth");
+const {auth} = require("../middleware/auth");
 
 //=================================
 //             Task
 //=================================
 
-router.get("/", (req, res) => {
+router.get("/",auth , (req, res) => {
 	Task.find({}, null, (err, tasks) => {
 		if (err) {
 			return res.status(500).json({

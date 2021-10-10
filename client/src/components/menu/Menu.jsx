@@ -57,6 +57,15 @@ export default function AppMenu() {
 					>
 				Sign up
 					</NavLink>
+					<NavLink
+						style={{ float: 'right' }}
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						to="/login"
+						exact={true}
+					>
+				Login
+					</NavLink>
 				</Grid>
 			</Grid>
 		</Box>

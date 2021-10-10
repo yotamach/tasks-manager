@@ -4,6 +4,6 @@ const baseUrl = process.env.SERVER_URL || 'http://localhost:5000';
 
 const serviceRequest = (url,method,data) => {
 	clearServerError();
-	return axios({method,url: baseUrl + url,data});
+	return axios({method,url: baseUrl + url,data,withCredentials: true});
 };
 export default serviceRequest;

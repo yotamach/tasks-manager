@@ -9,7 +9,7 @@ const getError = (state) => {
 }
 
 const setServerError = (error) => {
-	const errorObj = !error.response ? { message: "Server error" } : error;
+	const errorObj = !error.response ? { message: "Server error" } : error.response.data.error;
 	dispatch({
 		type: actions.SET_SERVER_ERROR,
 		payload: errorObj

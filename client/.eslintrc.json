@@ -24,6 +24,7 @@
             "warn",
             "tab"
         ],
+        "no-debugger": "warn",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
         "no-unused-vars": "warn",

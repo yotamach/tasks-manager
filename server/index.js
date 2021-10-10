@@ -14,7 +14,7 @@ mongoose.connect(`mongodb+srv://${config.userName}:${config.password}@${config.m
 	.then(() => logger.info("MongoDB Connected..."))
 	.catch(err => logger.error(err));
 
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data

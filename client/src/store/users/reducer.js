@@ -1,6 +1,7 @@
 import {actions} from './actionTypes';
 
 let initialState = {
+	isAutenticated: false,
 	status: null,
 	message: null,
 	details: {}
@@ -9,12 +10,10 @@ let initialState = {
 function userReducer(state = initialState, action) {
 	switch (action.type) {
 	case actions.REGISTER_USER:
-		state = {...state, ...action.payload};
-		return state;
+		return {...state, ...action.payload};
 	case actions.LOGIN_USER:
 	case actions.UPDATE_USER_DETAILS:
-		state = {...state, ...action.payload};
-		return state;
+		return {...state, ...action.payload};
 	case actions.LOGOUT_USER:
 		state = {...initialState};
 		return state;

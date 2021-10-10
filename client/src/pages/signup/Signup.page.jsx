@@ -1,20 +1,44 @@
 import { Paper, Typography, Grid, Button } from '@material-ui/core'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
 import { FormTextField, FormDateField } from 'common/form/FormFields';
 import { Box } from '@material-ui/core';
+import { registerUser } from 'store/users/actions';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { AlertMessage } from 'components/alert/Alert';
+import { clearServerError } from 'store/errors/actions';
 
 export default function Signup() {
-	const { handleSubmit, control } = useForm();
+	useEffect(() => {
+		clearServerError();
+	}, [])
+	const history = useHistory();
+	const error = useSelector(state => state.errors);
+	const { handleSubmit, control, reset } = useForm({
+		defaultValues: {
+			firstname: '',
+			lastname: '',
+			email: '',
+			birthDate: new Date().toISOString(),
+			username: '',
+			password: ''
+		}
+	});
+
+	useEffect(() => {
+		reset();
+	}, []);
 
 	const onSubmit = (data) => {
-		console.log(data);
+		registerUser(data)
 	}
 
 	return (
 		<Paper elevation={6}>
+			{!!error && <AlertMessage error={error} />}
 			<Box p={2}>
-				<Typography variant="h4">
+				<Typography variant="h5">
                 Registration
 				</Typography>
 				<form onSubmit={handleSubmit(onSubmit)}>
@@ -22,20 +46,38 @@ export default function Signup() {
 						<Grid item xs={4}>
 							<FormTextField
 								control={control}
-								name={'firstName'}
+								name={'firstname'}
 								id='form-input-control-firstName'
 								label='First name'
 								placeholder='First name'
 								variant="outlined"
+								rules={{ 
+									required: {value: true, message: 'First name is required' },
+									minLength:  {value: 6, message: 'First name must have at least 6 letters' },
+									pattern: {value: /^[A-Za-z]+$/i, message: 'First name should contain only alphabet letters' },
+								}}
+
 							/>
 						</Grid>
 						<Grid item xs={4}>
 							<FormTextField
 								control={control}
-								name={'lastName'}
+								name={'lastname'}
 								id='form-input-control-lastName'
 								label='Last name'
 								placeholder='Last name'
+								variant="outlined"
+								rules={{ required: {value: true, message: 'Last name is required' }}}
+							/>
+						</Grid>
+						<Grid item xs={4}>
+							<FormTextField
+								control={control}
+								name={'email'}
+								type='email'
+								id='form-input-control-email'
+								label='E-mail'
+								placeholder='E-mail'
 								variant="outlined"
 							/>
 						</Grid>
@@ -52,17 +94,17 @@ export default function Signup() {
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={4}>
 							<FormTextField
 								control={control}
-								name={'userName'}
+								name={'username'}
 								id='form-input-control-firstName'
 								label='User name'
 								placeholder='User name'
 								variant="outlined"
 							/>
 						</Grid>
-						<Grid item xs={6}>
+						<Grid item xs={4}>
 							<FormTextField
 								control={control}
 								name={'password'}

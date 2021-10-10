@@ -8,8 +8,10 @@ import AppHeader from 'components/header/Header';
 import AppFooter from 'components/footer/Footer';
 import AppContainer from 'components/container/Container';
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { blue, green } from '@material-ui/core/colors';
+import { blue, purple } from '@material-ui/core/colors';
 import { Home, Task, Tasks, NotFound, Signup } from 'pages';
+import Login from 'pages/login/Login.page';
+import { ProtectedRoute } from 'common/protectedRoute/ProtectedRoute';
 
 
 const theme = createTheme({
@@ -18,7 +20,7 @@ const theme = createTheme({
 			main: blue[800]
 		},
 		secondary: {
-			main: green[100]
+			main: purple[100]
 		}
 	},
 	transitions: {
@@ -45,10 +47,11 @@ function App() {
 						<AppContainer>
 							<Switch>
 								<Route exact path="/" component={Home}/>
-								<Route exact path="/tasks" component={Tasks}/>
+								<ProtectedRoute exact path="/tasks" component={Tasks}/>
 								<Route exact path={'/task/:mode'} component={Task}/>
 								<Route exact path={'/task/:mode/:id'} component={Task}/>
 								<Route exact path="/signup" component={Signup}/>
+								<Route exact path="/login" component={Login}/>
 								<Route path="*" component={NotFound}/>
 							</Switch>
 						</AppContainer>

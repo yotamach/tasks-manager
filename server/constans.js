@@ -20,7 +20,19 @@ function NotFoundResponse(data) {
 	};
 }
 
+function UnAuthorizationResponse(message) {
+	return {
+		success: false,
+		error: {
+			message,
+			status: 401,
+			name: "UnAuthorization"
+		}
+	};
+}
+
 module.exports = {
 	ErrorResponse,
-	NotFoundResponse
+	NotFoundResponse,
+    UnAuthorizationResponse
 };

@@ -1,14 +1,19 @@
-import { Message } from '@material-ui/icons';
 import React from 'react'
-import { useSelector } from 'react-redux';
 import { Typography } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
+import { PropTypes } from 'prop-types';
 
-export const Alert = () => {
-	const {message} = useSelector(state => state.errors);
-	
+export const AlertMessage = ({ error }) => {
+	const {status, message, name} = error;
+
 	return(	
-		<Message color="danger">
+		<Alert severity="error">
+			<Typography as="h4">Error: {status} {name}</Typography>
 			<Typography as="h5">{message}</Typography>
-		</Message>
+		</Alert>
 	)
+}
+
+AlertMessage.propTypes = {
+	error: PropTypes.object
 }

@@ -1,11 +1,11 @@
-import { Alert } from '../components/alert/Alert';
 import { PopUp } from './popUp/popUp';
 import { ConfirmDialog } from './confirmDialog/confirmDialog';
-import { TextField } from 'common/form/FormFields';
+import { TextField } from './form/FormFields';
+import { ProtectedRoute } from './protectedRoute/ProtectedRoute';
 
 export default {
-	Alert,
 	PopUp,
 	TextField,
-	ConfirmDialog
+	ConfirmDialog,
+	ProtectedRoute
 };

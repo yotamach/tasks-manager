@@ -1,0 +1,24 @@
+import React from "react";
+import { Redirect, Route } from "react-router-dom";
+import { PropTypes } from 'prop-types';
+import Cookies from 'js-cookie';
+
+
+export function ProtectedRoute({ component: Component, ...restOfProps }) {
+
+	const isAuthenticated = Cookies.get('w_isAuth');
+	console.log("this", isAuthenticated);
+
+	return (
+		<Route
+			{...restOfProps}
+			render={(props) =>
+				isAuthenticated ? <Component {...props} /> : <Redirect to="/login" />
+			}
+		/>
+	);
+}
+
+ProtectedRoute.propTypes = {
+	component: PropTypes.any
+}

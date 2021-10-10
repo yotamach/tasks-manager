@@ -1,15 +1,19 @@
 import {actions} from './actionTypes';
 import store from '../index';
-import { registerUser } from 'store/services/users.service';
+import { postRegister, postLogin } from 'store/services/users.service';
 import { setLoader } from '../loader/actions';
 import {setServerError} from './../errors/actions';
 
 const {dispatch} = store;
 
-const regusterUser = async (user) => {
+const registerUser = async (user) => {
 	try{
 		setLoader(true)
-		const response = await registerUser(user);
+		const response = await postRegister(user);
+		dispatch({
+			type: actions.REGISTER_USER,
+			payload: response.data.user,
+		});
 		setLoader(false);	
 	} catch(err) {
 		setServerError(err);
@@ -17,7 +21,24 @@ const regusterUser = async (user) => {
 	}
 }
 
+const loginUser = async (user) => {
+	try{
+		setLoader(true)
+		const response = await postLogin(user);
+		console.log(response);
+		console.log('Hi');
+		dispatch({
+			type: actions.LOGIN_USER,
+			payload: response.data.user,
+		});
+		setLoader(false);	
+	} catch(err) {
+		setServerError(err);
+		setLoader(false);
+	}
+}
 
 export {
-	regusterUser
+	registerUser,
+	loginUser
 };

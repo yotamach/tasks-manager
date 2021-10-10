@@ -1,6 +1,10 @@
 import serviceRequest from 'store/serviceRequest';
 import ApiUrls from './api-urls';
 
-export function registerUser() {
-	return serviceRequest(`${ApiUrls.users}/register`,'get',null);
+export function postRegister(data) {
+	return serviceRequest(`${ApiUrls.users}/register`,'post',data);
+}
+
+export function postLogin(data) {
+	return serviceRequest(`${ApiUrls.users}/login`,'post',data);
 }
