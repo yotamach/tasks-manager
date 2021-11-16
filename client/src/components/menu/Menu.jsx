@@ -13,6 +13,10 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
+const logOut = () => {
+
+}
+
 export default function AppMenu() {
 	const classes = useStyles();
 	return (
@@ -53,6 +57,16 @@ export default function AppMenu() {
 						activeClassName={classes.active}
 						className={classes.menuButton}
 						to="/signup"
+						exact={true}
+					>
+				Sign up
+					</NavLink>
+					<NavLink
+						style={{ float: 'right' }}
+						activeClassName={classes.active}
+						className={classes.menuButton}
+						onClick={logOut}
+						to="/"
 						exact={true}
 					>
 				Sign up

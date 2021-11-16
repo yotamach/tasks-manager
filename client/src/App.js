@@ -7,40 +7,21 @@ import store from 'store/index';
 import AppHeader from 'components/header/Header';
 import AppFooter from 'components/footer/Footer';
 import AppContainer from 'components/container/Container';
-import { createTheme, ThemeProvider } from '@material-ui/core/styles';
-import { blue, purple } from '@material-ui/core/colors';
+import { ThemeProvider } from '@material-ui/core/styles';
 import { Home, Task, Tasks, NotFound, Signup } from 'pages';
 import Login from 'pages/login/Login.page';
 import { ProtectedRoute } from 'common/protectedRoute/ProtectedRoute';
+import { lightTheme } from './styles/themes/light';
+import { darkTheme } from './styles/themes/dark';
+import { CssBaseline } from '@material-ui/core';
 
-
-const theme = createTheme({
-	palette: {
-		primary: {
-			main: blue[800]
-		},
-		secondary: {
-			main: purple[100]
-		}
-	},
-	transitions: {
-		duration: {
-			shortest: 150,
-			shorter: 200,
-			short: 250,
-			standard: 300,
-			complex: 375,
-			enteringScreen: 225,
-			leavingScreen: 195,
-		}
-	}
-});
 
 function App() {
 	const {appName} = AppDetails;
 	return (
 		<Provider store={store}>
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme={lightTheme}>
+				<CssBaseline />
 				<div className="App">
 					<Router>
 						<AppHeader title={appName}/>

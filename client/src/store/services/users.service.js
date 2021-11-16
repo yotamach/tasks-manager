@@ -8,3 +8,7 @@ export function postRegister(data) {
 export function postLogin(data) {
 	return serviceRequest(`${ApiUrls.users}/login`,'post',data);
 }
+
+export function getLogout() {
+	return serviceRequest(`${ApiUrls.users}/logout`,'get');
+}

@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-var uniqueValidator = require('mongoose-unique-validator');
+var uniqueValidator = require("mongoose-unique-validator");
 const jwt = require("jsonwebtoken");
 const moment = require("moment");
 
@@ -13,19 +13,19 @@ const userSchema = mongoose.Schema({
 	email: {
 		type:String,
 		trim:true,
-		required: [true, 'Enter a email.'],
-		unique: [true, 'email already taken']
+		required: [true, "Enter a email."],
+		unique: [true, "email already taken"]
 	},
 	username: {
 		type:String,
 		trim:true,
-		required: [true, 'Enter a username.'],
-		unique: [true, 'username already taken'],
+		required: [true, "Enter a username."],
+		unique: [true, "username already taken"],
 	},
 	password: {
 		type: String,
 		minglength: 6,
-		required: [true, 'Enter a password.'],
+		required: [true, "Enter a password."],
 	},
 	lastname: {
 		type:String,
@@ -51,7 +51,7 @@ const userSchema = mongoose.Schema({
 	}
 });
 
-userSchema.plugin(uniqueValidator, { message: '{PATH} must be unique' });
+userSchema.plugin(uniqueValidator, { message: "{PATH} must be unique" });
 
 
 userSchema.pre("save", function( next ) {

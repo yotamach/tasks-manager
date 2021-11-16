@@ -14,7 +14,7 @@ mongoose.connect(`mongodb+srv://${config.userName}:${config.password}@${config.m
 	.then(() => logger.info("MongoDB Connected..."))
 	.catch(err => logger.error(err));
 
-app.use(cors({credentials: true, origin: true}));
+app.use(cors());
 
 //to not get any deprecation warning or error
 //support parsing of application/x-www-form-urlencoded post data
@@ -22,8 +22,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //to get json data
 // support parsing of application/json type post data
 app.use(bodyParser.json());
+
 app.use(cookieParser());
+
 app.use(pinoHttp);
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "GET , PUT , POST , DELETE");
+    res.header("Access-Control-Allow-Headers", "Content-Type, x-requested-with");
+    next(); // Important
+})
 
 app.use("/api/users", require("./routes/users"));
 app.use("/api/tasks", require("./routes/tasks"));

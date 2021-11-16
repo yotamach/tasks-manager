@@ -15,6 +15,7 @@ export default function Login() {
 	}, [])
 	const history = useHistory();
 	const error = useSelector(state => state.errors);
+	const { isAutenticated } = useSelector(state => state.user);
 	const { handleSubmit, control, reset } = useForm({
 		defaultValues: {
 			username: '',
@@ -27,7 +28,8 @@ export default function Login() {
 	}, []);
 
 	const onSubmit = (data) => {
-		loginUser(data)
+		loginUser(data);
+		if (isAutenticated) history.push("/");
 	}
 
 	return (

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { makeStyles, Typography, Grid, Button, Paper, Box } from '@material-ui/core';
 import { FormTextField, FormTextAreaField, RadioGroupField } from 'common/form/FormFields';
 import moment from 'moment';
-import { StatusOptions } from 'constans/task.consts';
+import { StatusOptions } from 'constans/task.constans';
 import { FormDateField } from 'common/form/FormFields';
 
 const useStyles = makeStyles({

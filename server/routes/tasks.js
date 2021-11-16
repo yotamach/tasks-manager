@@ -4,42 +4,38 @@ const logger = require("../logger");
 const router = express.Router();
 const {Task} = require("../models/Task");
 
-const {auth} = require("../middleware/auth");
+const TasksManager = require("../services/tasks");
 
 //=================================
 //             Task
 //=================================
 
-router.get("/",auth , (req, res) => {
-	Task.find({}, null, (err, tasks) => {
-		if (err) {
-			return res.status(500).json({
-				...ErrorResponse,
-				error: err
-			});
-		}
-		return res.status(200).json({
-			success: true,
-			tasks
+const tasksManager = new TasksManager();
+
+router.get("/",async (req, res) => {
+	const result = await tasksManager.getTasks();
+	if (!result) {
+		return res.status(500).json({
+			...ErrorResponse,
+			error: result.error
 		});
-	});
+	}
+	return res.status(200).json(result);
 });
 
-router.post("/", (req, res) => {
-	const task = new Task({
-		...req.body,
-		creationTime: new Date()
-	});
-	task.save((err, task) => {
-		if (err) { 
-			return res.status(400).json(ErrorResponse(err)); 
-		}
-		logger.error(200,task);
+
+router.post("/", async (req, res) => {
+	try {
+		const result = await tasksManager.createTask(req.body);
 		return res.status(200).json({
 			success: true,
-			task
+			task: result
 		});
-	});
+	}
+	catch(e) {
+		logger.error(200,result);
+		return res.status(400).json(ErrorResponse(err)); 
+	}
 });
 
 router.get("/:id", (req, res) => {

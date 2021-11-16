@@ -25,8 +25,6 @@ const loginUser = async (user) => {
 	try{
 		setLoader(true)
 		const response = await postLogin(user);
-		console.log(response);
-		console.log('Hi');
 		dispatch({
 			type: actions.LOGIN_USER,
 			payload: response.data.user,

@@ -34,10 +34,12 @@ const retrieveTasksList = async () => {
 
 const createTask = async (newTask) => {
 	const task = {
-		name: newTask.name,
-		endOfDate: newTask.endOfDate,
-		description: newTask.description
+		name: newTask.taskName,
+		endOfDate: newTask.taskEndDate.toDate(),
+		description: newTask.taskDascripton,
+		status: newTask.taskStatus
 	}
+	console.log(newTask);
 	try{
 		setLoader(true);
 		const response = await postTask(task);

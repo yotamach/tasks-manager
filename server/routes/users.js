@@ -39,11 +39,11 @@ router.post("/register", (req, res) => {
 router.post("/login", (req, res) => {
 	User.findOne({ username: req.body.username }, (err, user) => {
 		if (!user)
-			return res.status(404).json(NotFoundResponse('user'));
+			return res.status(404).json(NotFoundResponse("user"));
 
 		user.comparePassword(req.body.password, (err, isMatch) => {
 			if (!isMatch)
-				return res.json(UnAuthorizationResponse('Wrong password'));
+				return res.json(UnAuthorizationResponse("Wrong password"));
 
 			user.generateToken((err, user) => {
 				if (err) return res.status(400).send(err);
@@ -62,7 +62,9 @@ router.post("/login", (req, res) => {
 
 router.get("/logout", auth, (req, res) => {
 	User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, user) => {
-		if (err) return res.json({ success: false, err });
+		if (err) return res.status(500).json(ErrorResponse(err));
+		res.clearCookie("w_authExp");
+		res.clearCookie("w_isAuth");
 		return res.status(200).send({
 			success: true,
 			user

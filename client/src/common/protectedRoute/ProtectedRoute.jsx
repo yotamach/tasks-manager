@@ -11,7 +11,7 @@ export function ProtectedRoute({ component: Component, ...restOfProps }) {
 		<Route
 			{...restOfProps}
 			render={(props) =>
-				JSON.parse(isAuthenticated) ? <Component {...props} /> : <Redirect to="/login" />
+				isAuthenticated && JSON.parse(isAuthenticated) ? <Component {...props} /> : <Redirect to="/login" />
 			}
 		/>
 	);

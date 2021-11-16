@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start:client:dev": "set HTTPS=true && cd client && npm run start:dev",
+    "start:client:dev": "cd client && npm run start:dev",
     "build:client:dev": "cd client && npm run build:dev",
     "start:client:prod": "cd client && npm run start:prod",
     "build:client:prod": "cd client && npm run build:prod",

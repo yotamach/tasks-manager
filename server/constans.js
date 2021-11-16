@@ -31,8 +31,20 @@ function UnAuthorizationResponse(message) {
 	};
 }
 
+function ForbiddenError() {
+	return {
+		success: false,
+		error: {
+			message: "This call is forbnidden",
+			status: 403,
+			name: "ForbiddenError"
+		}
+	};
+}
+
 module.exports = {
 	ErrorResponse,
 	NotFoundResponse,
-    UnAuthorizationResponse
+	UnAuthorizationResponse,
+	ForbiddenError
 };
