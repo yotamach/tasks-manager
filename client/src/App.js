@@ -48,7 +48,7 @@ function App() {
 							<Switch>
 								<Route exact path="/" component={Home}/>
 								<ProtectedRoute exact path="/tasks" component={Tasks}/>
-								<Route exact path={'/task/:mode'} component={Task}/>
+								<ProtectedRoute exact path={'/task/:mode'} component={Task}/>
 								<Route exact path={'/task/:mode/:id'} component={Task}/>
 								<Route exact path="/signup" component={Signup}/>
 								<Route exact path="/login" component={Login}/>
